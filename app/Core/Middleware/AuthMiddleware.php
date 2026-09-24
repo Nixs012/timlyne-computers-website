@@ -1,12 +1,11 @@
 <?php
 namespace App\Core\Middleware;
 
+use App\Core\Auth;
+
 class AuthMiddleware {
     public function handle() {
-        // Stub: In real app, check Session::get('admin_id')
-        $isAuthenticated = false; 
-        
-        if (!$isAuthenticated) {
+        if (!Auth::check()) {
             header('Location: /admin/login');
             exit;
         }

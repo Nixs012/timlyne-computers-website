@@ -1,9 +1,11 @@
 <?php
 namespace App\Controllers;
 
+use App\Models\Setting;
+
 class HomeController {
     public function index() {
-        $title = "Timlyne Computers | Modern CMS Placeholder";
+        $settings = Setting::getAll();
         require APP_PATH . '/Views/home.php';
     }
 }

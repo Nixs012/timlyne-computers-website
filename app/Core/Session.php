@@ -8,7 +8,6 @@ class Session {
             session_set_cookie_params([
                 'lifetime' => 86400,
                 'path' => '/',
-                'domain' => $_SERVER['HTTP_HOST'] ?? '',
                 'secure' => isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on', // True if HTTPS
                 'httponly' => true,
                 'samesite' => 'Lax' // Lax is generally good for most auth, Strict if possible
