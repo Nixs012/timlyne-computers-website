@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Timlyne Computers Solutions Limited — Desktops, Laptops, Printers, CCTV, Networking & more in Mombasa, Kenya." />
+  <title>Timlyne Computer Solutions Limited | Mombasa</title>
+  <link rel="icon" href="assets/logo.png" type="image/png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&family=Outfit:wght@500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/styles.css" />
+</head>
+<body>
+  <header class="header" id="top">
+    <div class="header__inner container">
+      <a href="#top" class="logo" aria-label="Timlyne Computer Solutions Limited — Home">
+        <span class="logo__icon-wrap">
+          <img src="assets/logo.png" alt="" class="logo__icon" width="44" height="44" />
+        </span>
+        <span class="logo__text">
+          <strong class="logo__title">TIMLYNE</strong>
+          <span class="logo__subtitle">Computer Solutions Limited</span>
+        </span>
+      </a>
+      <nav class="nav" aria-label="Main navigation">
+        <a href="#products">Shop</a>
+        <a href="#categories">Categories</a>
+        <a href="#about">About</a>
+        <a href="#contact">Contact</a>
+      </nav>
+      <div class="header__actions">
+        <button type="button" class="cart-btn" id="cartToggle" aria-label="Open shopping cart">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+            <circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/>
+            <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/>
+          </svg>
+          <span class="cart-btn__count" id="cartCount">0</span>
+        </button>
+        <button type="button" class="menu-btn" id="menuBtn" aria-label="Toggle menu" aria-expanded="false">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+    </div>
+    <div class="mobile-nav" id="mobileNav">
+      <a href="#products">Shop</a>
+      <a href="#categories">Categories</a>
+      <a href="#about">About</a>
+      <a href="#contact">Contact</a>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="hero__bg"></div>
+      <div class="container hero__content">
+        <p class="hero__badge">Hiltop Plaza (1st Floor Shop No. M25) . Mwembe Tayari . Mombasa · Kenya</p>
+        <h1>Your trusted partner for <span>computers & tech</span></h1>
+        <p class="hero__lead">Desktops, Laptops, Printers, CCTV, Networking Gear, UPS, Inks, Routers, Cables, Plotters, Heatpress Machines, Storage & more — all under one roof.</p>
+        <div class="hero__cta">
+          <a href="#products" class="btn btn--primary">Browse products</a>
+          <a href="#contact" class="btn btn--outline">Visit our shop</a>
+        </div>
+        <ul class="hero__stats">
+          <li><strong>15+</strong><span>Product lines</span></li>
+          <li><strong>100%</strong><span>Genuine parts</span></li>
+          <li><strong>M25</strong><span>Hiltop Plaza, 1st Floor</span></li>
+        </ul>
+      </div>
+    </section>
+
+    <section class="categories" id="categories">
+      <div class="container">
+        <h2 class="section-title">Shop by category</h2>
+        <div class="category-pills" id="categoryPills"></div>
+      </div>
+    </section>
+
+    <section class="products" id="products">
+      <div class="container">
+        <div class="products__header">
+          <h2 class="section-title">Featured products</h2>
+          <div class="search-wrap">
+            <input type="search" id="searchInput" placeholder="Search products..." aria-label="Search products" />
+          </div>
+        </div>
+        <p class="products__count" id="productCount"></p>
+        <div class="product-grid" id="productGrid"></div>
+        <p class="empty-state" id="emptyState" hidden>No products match your search.</p>
+      </div>
+    </section>
+
+    <section class="about" id="about">
+      <div class="container about__grid">
+        <div class="about__copy">
+          <h2 class="section-title">About Timlyne</h2>
+          <p>Timlyne Computers Solutions Limited is a full-service computer store in Mombasa, supplying businesses and individuals with quality hardware, accessories, and support.</p>
+          <p>From Epson printers and original inks to Tenda and TP-Link networking, Lightwave UPS systems, CCTV installations, and complete desktop & laptop solutions — we stock what you need to stay connected and productive.</p>
+        </div>
+        <div class="about__card">
+          <h3>What we offer</h3>
+          <ul>
+            <li>Desktops & Custom PC builds</li>
+            <li>Laptops & Chargers</li>
+            <li>Epson Printers & Original Inks</li>
+            <li>Plotting Machines</li>
+            <li>Heatpress Machines</li>
+            <li>Laminating Machines</li>
+            <li>CCTV & Surveillance</li>
+            <li>Professional Cameras</li>
+            <li>Networking & Routers</li>
+            <li>Storage: HDD, SSD & Enclosures</li>
+            <li>RAM, Cables & UPS</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section class="contact" id="contact">
+      <div class="container contact__grid">
+        <div>
+          <h2 class="section-title section-title--light">Get in touch</h2>
+          <p class="contact__tagline">Visit us or call — we're ready to help.</p>
+        </div>
+        <div class="contact__cards">
+          <article class="contact-card">
+            <h3>Location</h3>
+            <p>Mwembe Tayari, Hiltop Plaza<br />1st Floor, Shop No. M25<br />Mombasa, Kenya</p>
+          </article>
+          <article class="contact-card">
+            <h3>Phone</h3>
+            <p><a href="tel:+254724407638">0724 407 638</a></p>
+            <p><a href="tel:+254707302212">0707 302 212</a></p>
+          </article>
+          <article class="contact-card">
+            <h3>Email</h3>
+            <p><a href="mailto:info@timlynecomputers.co.ke">info@timlynecomputers.co.ke</a></p>
+          </article>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="container footer__inner">
+      <p>&copy; <span id="year"></span> Timlyne Computers Solutions Limited. All rights reserved.</p>
+      <p>Mombasa, Kenya · Shop M25, Hiltop Plaza</p>
+    </div>
+  </footer>
+
+  <aside class="cart-drawer" id="cartDrawer" aria-hidden="true">
+    <div class="cart-drawer__overlay" id="cartOverlay"></div>
+    <div class="cart-drawer__panel" role="dialog" aria-labelledby="cartTitle">
+      <header class="cart-drawer__header">
+        <h2 id="cartTitle">Your cart</h2>
+        <button type="button" class="cart-drawer__close" id="cartClose" aria-label="Close cart">&times;</button>
+      </header>
+      <div class="cart-drawer__body" id="cartItems"></div>
+      <footer class="cart-drawer__footer">
+        <div class="cart-total">
+          <span>Total</span>
+          <strong id="cartTotal">Ksh 0</strong>
+        </div>
+        <button type="button" class="btn btn--primary btn--block" id="checkoutBtn">Request quote via WhatsApp</button>
+        <button type="button" class="btn btn--ghost btn--block" id="clearCartBtn">Clear cart</button>
+      </footer>
+    </div>
+  </aside>
+
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+  <script src="js/products.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>
