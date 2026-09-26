@@ -1,4 +1,6 @@
-(function () {
+(async function () {
+  let CATEGORIES = [];
+  let PRODUCTS = [];
   const STORAGE_KEY = "timlyne_cart";
 
   const $ = (sel) => document.querySelector(sel);
@@ -97,7 +99,7 @@
           ${productVisual(p)}
         </div>
         <div class="product-card__body">
-          <h3>${p.name}</h3>
+          <h3><a href="/products/${p.slug}" style="text-decoration:none; color:inherit;">${p.name}</a></h3>
           <ul class="product-card__specs">
             ${p.specs.map((s) => `<li>${s}</li>`).join("")}
           </ul>
@@ -275,7 +277,20 @@
 
   $("#year").textContent = new Date().getFullYear();
 
-  renderCategoryPills();
-  renderProducts();
+  try {
+    const [catRes, prodRes] = await Promise.all([
+      fetch('/api/categories'),
+      fetch('/api/products')
+    ]);
+    CATEGORIES = await catRes.json();
+    PRODUCTS = await prodRes.json();
+    
+    renderCategoryPills();
+    renderProducts();
+  } catch (e) {
+    console.error("Failed to load products", e);
+    productGrid.innerHTML = "<p>Error loading products. Please try again later.</p>";
+  }
+
   updateCartUI();
 })();

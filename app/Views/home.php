@@ -222,7 +222,6 @@ $waUrl = "https://wa.me/{$cleanWaNumber}?text=" . rawurlencode($waMsg);
 
   <div class="toast" id="toast" role="status" aria-live="polite"></div>
 
-  <script src="js/products.js"></script>
   <script src="js/app.js"></script>
 </body>
 </html>

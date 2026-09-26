@@ -21,6 +21,7 @@
             <a href="/admin">Dashboard</a>
             <a href="/admin/content">Content</a>
             <a href="/admin/pages">Pages</a>
+            <a href="/admin/categories">Categories</a>
             <a href="/admin/products">Products</a>
             <a href="/admin/services">Services</a>
             <a href="/admin/gallery">Gallery</a>

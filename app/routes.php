@@ -1,6 +1,11 @@
 <?php
 // Public routes
 $router->get('/', 'HomeController@index');
+$router->get('/products/[slug]', 'ProductPageController@show');
+
+// API Endpoints
+$router->get('/api/products', 'Api\ProductController@index');
+$router->get('/api/categories', 'Api\CategoryController@index');
 
 // Admin Auth
 $router->get('/admin/login', 'Admin\AuthController@showLoginForm');
@@ -15,7 +20,7 @@ $router->get('/admin', 'Admin\DashboardController@index', $auth);
 
 // Sidebar placeholder routes
 $sidebarRoutes = [
-    '/admin/content', '/admin/pages', '/admin/products', '/admin/services',
+    '/admin/content', '/admin/pages', '/admin/services',
     '/admin/gallery', '/admin/messages', '/admin/chatbot',
     '/admin/seo', '/admin/whatsapp'
 ];
@@ -27,6 +32,20 @@ foreach ($sidebarRoutes as $route) {
 $router->get('/admin/media', 'Admin\MediaController@index', $auth);
 $router->post('/admin/media/upload', 'Admin\MediaController@upload', $auth);
 $router->post('/admin/media/delete', 'Admin\MediaController@delete', $auth);
+
+// Admin Categories
+$router->get('/admin/categories', 'Admin\CategoryController@index', $auth);
+$router->post('/admin/categories', 'Admin\CategoryController@store', $auth);
+$router->post('/admin/categories/[id]/update', 'Admin\CategoryController@update', $auth);
+$router->post('/admin/categories/[id]/delete', 'Admin\CategoryController@delete', $auth);
+
+// Admin Products
+$router->get('/admin/products', 'Admin\ProductController@index', $auth);
+$router->get('/admin/products/create', 'Admin\ProductController@create', $auth);
+$router->post('/admin/products', 'Admin\ProductController@store', $auth);
+$router->get('/admin/products/[id]/edit', 'Admin\ProductController@edit', $auth);
+$router->post('/admin/products/[id]/update', 'Admin\ProductController@update', $auth);
+$router->post('/admin/products/[id]/delete', 'Admin\ProductController@delete', $auth);
 
 // Super Admin only routes
 $router->get('/admin/business-settings', 'Admin\SettingsController@index', $superAdmin);
