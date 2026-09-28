@@ -21,11 +21,11 @@ $waUrl = "https://wa.me/{$cleanWaNumber}?text=" . rawurlencode($waMsg);
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="description" content="<?= \App\Core\Security::e($bName) ?> — Desktops, Laptops, Printers, CCTV, Networking & more in Mombasa, Kenya." />
   <title><?= \App\Core\Security::e($bName) ?> | Mombasa</title>
-  <link rel="icon" href="assets/logo.png" type="image/png" />
+  <link rel="icon" href="/assets/logo.png" type="image/png" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&family=Outfit:wght@500;600;700;800&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="css/styles.css" />
+  <link rel="stylesheet" href="/css/styles.css" />
   <style>
     .floating-wa {
         position: fixed;
@@ -59,7 +59,7 @@ $waUrl = "https://wa.me/{$cleanWaNumber}?text=" . rawurlencode($waMsg);
     <div class="header__inner container">
       <a href="#top" class="logo" aria-label="<?= \App\Core\Security::e($bName) ?> — Home">
         <span class="logo__icon-wrap">
-          <img src="assets/logo.png" alt="" class="logo__icon" width="44" height="44" />
+          <img src="/assets/logo.png" alt="" class="logo__icon" width="44" height="44" />
         </span>
         <span class="logo__text">
           <strong class="logo__title">TIMLYNE</strong>
@@ -67,10 +67,12 @@ $waUrl = "https://wa.me/{$cleanWaNumber}?text=" . rawurlencode($waMsg);
         </span>
       </a>
       <nav class="nav" aria-label="Main navigation">
-        <a href="#products">Shop</a>
-        <a href="#categories">Categories</a>
-        <a href="#about">About</a>
-        <a href="#contact">Contact</a>
+        <a href="/#products">Shop</a>
+        <a href="/#categories">Categories</a>
+        <?php if ($aboutPage && $aboutPage['is_published']): ?>
+        <a href="/#about">About</a>
+        <?php endif; ?>
+        <a href="/#contact">Contact</a>
       </nav>
       <div class="header__actions">
         <button type="button" class="cart-btn" id="cartToggle" aria-label="Open shopping cart">
@@ -86,10 +88,12 @@ $waUrl = "https://wa.me/{$cleanWaNumber}?text=" . rawurlencode($waMsg);
       </div>
     </div>
     <div class="mobile-nav" id="mobileNav">
-      <a href="#products">Shop</a>
-      <a href="#categories">Categories</a>
-      <a href="#about">About</a>
-      <a href="#contact">Contact</a>
+      <a href="/#products">Shop</a>
+      <a href="/#categories">Categories</a>
+      <?php if ($aboutPage && $aboutPage['is_published']): ?>
+      <a href="/#about">About</a>
+      <?php endif; ?>
+      <a href="/#contact">Contact</a>
     </div>
   </header>
 
@@ -134,11 +138,13 @@ $waUrl = "https://wa.me/{$cleanWaNumber}?text=" . rawurlencode($waMsg);
     </section>
 
     <section class="about" id="about">
+      <?php if ($aboutPage && $aboutPage['is_published']): ?>
       <div class="container about__grid">
         <div class="about__copy">
           <h2 class="section-title">About Timlyne</h2>
-          <p><?= \App\Core\Security::e($bName) ?> is a full-service computer store in Mombasa, supplying businesses and individuals with quality hardware, accessories, and support.</p>
-          <p>From Epson printers and original inks to Tenda and TP-Link networking, Lightwave UPS systems, CCTV installations, and complete desktop & laptop solutions — we stock what you need to stay connected and productive.</p>
+          <div class="cms-content">
+            <?= $aboutPage['content'] ?>
+          </div>
         </div>
         <div class="about__card">
           <h3>What we offer</h3>
@@ -157,6 +163,7 @@ $waUrl = "https://wa.me/{$cleanWaNumber}?text=" . rawurlencode($waMsg);
           </ul>
         </div>
       </div>
+      <?php endif; ?>
     </section>
 
     <section class="contact" id="contact">

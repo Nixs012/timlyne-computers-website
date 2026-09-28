@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>404 - Page Not Found | Timlyne Computers</title>
-  <link rel="stylesheet" href="css/styles.css" />
+  <link rel="stylesheet" href="/css/styles.css" />
   <style>
     .error-container {
         text-align: center;
@@ -28,7 +28,7 @@
   <header class="header">
     <div class="header__inner container">
       <a href="/" class="logo">
-        <span class="logo__icon-wrap"><img src="assets/logo.png" alt="" width="44" height="44" /></span>
+        <span class="logo__icon-wrap"><img src="/assets/logo.png" alt="" width="44" height="44" /></span>
         <span class="logo__text">
           <strong class="logo__title">TIMLYNE</strong>
           <span class="logo__subtitle">Computer Solutions Limited</span>

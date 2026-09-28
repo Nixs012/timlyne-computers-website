@@ -2,7 +2,7 @@
 // Public routes
 $router->get('/', 'HomeController@index');
 $router->get('/products/[slug]', 'ProductPageController@show');
-$router->get('/about', 'PageController@show');
+$router->get('/about', 'PageController@redirectAbout');
 $router->get('/privacy-policy', 'PageController@show');
 $router->get('/terms-conditions', 'PageController@show');
 
@@ -66,3 +66,6 @@ $router->get('/admin/analytics', 'Admin\DashboardController@placeholder', $super
 $router->get('/admin/users', 'Admin\DashboardController@placeholder', $superAdmin);
 $router->get('/admin/security', 'Admin\DashboardController@placeholder', $superAdmin);
 $router->get('/admin/system-settings', 'Admin\DashboardController@placeholder', $superAdmin);
+
+// Catch-all for dynamic pages
+$router->get('/[slug]', 'PageController@show');

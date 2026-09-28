@@ -1,4 +1,10 @@
 <?php
+// Local dev server bypass: allow direct file access for assets
+if (PHP_SAPI === 'cli-server') {
+    $path = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
+    if ($path !== '/' && is_file(__DIR__ . $path)) { return false; }
+}
+
 // Entry point for the application
 
 define('ROOT_PATH', dirname(__DIR__));

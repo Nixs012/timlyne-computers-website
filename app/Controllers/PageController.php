@@ -5,6 +5,11 @@ use App\Models\Page;
 use App\Models\Setting;
 
 class PageController {
+    public function redirectAbout() {
+        header("Location: /#about", true, 301);
+        exit;
+    }
+
     public function show($slug = null) {
         if ($slug === null) {
             $slug = trim(parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH), '/');
