@@ -1,4 +1,4 @@
-<?php require __DIR__ . '/../layout.php'; ?>
+<?php require __DIR__ . '/../layout_header.php'; ?>
 
 <div class="header-action-bar" style="margin-bottom: 2rem;">
     <h2>Add New Product</h2>
@@ -7,7 +7,7 @@
 <div class="card">
     <form action="/admin/products" method="POST" class="settings-form">
         <input type="hidden" name="csrf_token" value="<?= \App\Core\Security::generateCsrfToken() ?>">
-        
+
         <div class="form-group">
             <label>Product ID (e.g., lap-004)</label>
             <input type="text" name="id" required>
@@ -81,3 +81,4 @@
         </div>
     </form>
 </div>
+<?php require __DIR__ . '/../layout_footer.php'; ?>

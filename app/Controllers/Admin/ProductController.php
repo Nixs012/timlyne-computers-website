@@ -8,7 +8,21 @@ use App\Core\Session;
 
 class ProductController {
     public function index() {
-        $products = Product::getAllAdmin();
+        $page = (int)($_GET['page'] ?? 1);
+        $perPage = 20;
+        $offset = ($page - 1) * $perPage;
+
+        $total = Product::getTotalAdminCount();
+        $products = Product::getPaginatedAdmin($page, $perPage);
+
+        $data = [
+            'title' => 'Manage Products',
+            'products' => $products,
+            'total' => $total,
+            'page' => $page,
+            'perPage' => $perPage
+        ];
+        extract($data);
         require APP_PATH . '/Views/admin/products/index.php';
     }
 

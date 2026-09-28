@@ -11,6 +11,21 @@ class Product {
         return $stmt->fetchAll();
     }
 
+    public static function getTotalAdminCount() {
+        $db = Database::getConnection();
+        return (int)$db->query("SELECT COUNT(*) FROM products")->fetchColumn();
+    }
+
+    public static function getPaginatedAdmin($page, $perPage) {
+        $db = Database::getConnection();
+        $offset = ($page - 1) * $perPage;
+        $stmt = $db->prepare("SELECT p.*, c.name as category_name FROM products p JOIN categories c ON p.category_id = c.id ORDER BY p.created_at DESC LIMIT ? OFFSET ?");
+        $stmt->bindValue(1, (int)$perPage, PDO::PARAM_INT);
+        $stmt->bindValue(2, (int)$offset, PDO::PARAM_INT);
+        $stmt->execute();
+        return $stmt->fetchAll();
+    }
+
     public static function getAllPublic() {
         $db = Database::getConnection();
         $stmt = $db->query("SELECT p.*, c.name as category_name FROM products p JOIN categories c ON p.category_id = c.id WHERE p.is_published = 1 ORDER BY p.created_at DESC");

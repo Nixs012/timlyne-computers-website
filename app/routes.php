@@ -31,6 +31,15 @@ $router->post('/admin/faqs/[id]/update', 'Admin\FaqController@update', $auth);
 $router->post('/admin/faqs/[id]/delete', 'Admin\FaqController@delete', $auth);
 $router->post('/admin/faqs/[id]/move', 'Admin\FaqController@move', $auth);
 
+// Gallery Management
+$router->get('/admin/gallery', 'Admin\GalleryController@index', $auth);
+$router->get('/admin/gallery/create', 'Admin\GalleryController@create', $auth);
+$router->post('/admin/gallery', 'Admin\GalleryController@store', $auth);
+$router->get('/admin/gallery/[id]/edit', 'Admin\GalleryController@edit', $auth);
+$router->post('/admin/gallery/[id]/update', 'Admin\GalleryController@update', $auth);
+$router->post('/admin/gallery/[id]/delete', 'Admin\GalleryController@delete', $auth);
+$router->post('/admin/gallery/[id]/move', 'Admin\GalleryController@move', $auth);
+
 // Page Management
 $router->get('/admin/pages', 'Admin\PageController@index', $auth);
 $router->get('/admin/pages/create', 'Admin\PageController@create', $auth);

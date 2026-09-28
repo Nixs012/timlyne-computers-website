@@ -5,12 +5,16 @@ class DashboardController {
     public function index() {
         $title = "Dashboard";
         $content = "<h2>Welcome to the Admin Dashboard</h2><p>Overview statistics will appear here.</p>";
-        require APP_PATH . '/Views/admin/layout.php';
+        require APP_PATH . '/Views/admin/layout_header.php';
+        echo $content;
+        require APP_PATH . '/Views/admin/layout_footer.php';
     }
 
     public function placeholder() {
         $title = "Placeholder Module";
         $content = "<h2>This module is under construction</h2>";
-        require APP_PATH . '/Views/admin/layout.php';
+        require APP_PATH . '/Views/admin/layout_header.php';
+        echo $content;
+        require APP_PATH . '/Views/admin/layout_footer.php';
     }
 }

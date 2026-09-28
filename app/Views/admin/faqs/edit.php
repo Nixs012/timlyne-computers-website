@@ -1,4 +1,4 @@
-<?php require __DIR__ . '/../layout.php'; ?>
+<?php require __DIR__ . '/../layout_header.php'; ?>
 
 <div class="header-action-bar" style="margin-bottom: 2rem;">
     <h2>Edit FAQ: <?= \App\Core\Security::e($faq['question']) ?></h2>
@@ -41,3 +41,4 @@
         </div>
     </form>
 </div>
+<?php require __DIR__ . '/../layout_footer.php'; ?>

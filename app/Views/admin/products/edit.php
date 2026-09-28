@@ -1,4 +1,4 @@
-<?php require __DIR__ . '/../layout.php'; ?>
+<?php require __DIR__ . '/../layout_header.php'; ?>
 
 <div class="header-action-bar" style="margin-bottom: 2rem;">
     <h2>Edit Product</h2>
@@ -7,7 +7,7 @@
 <div class="card">
     <form action="/admin/products/<?= \App\Core\Security::e($product['id']) ?>/update" method="POST" class="settings-form">
         <input type="hidden" name="csrf_token" value="<?= \App\Core\Security::generateCsrfToken() ?>">
-        
+
         <div class="form-group">
             <label>Product ID</label>
             <input type="text" value="<?= \App\Core\Security::e($product['id']) ?>" disabled style="background: #f5f5f5;">
@@ -59,8 +59,8 @@
 
         <div class="form-group">
             <label>Specs (One per line)</label>
-            <?php 
-                $specsArray = json_decode($product['specs'], true) ?? []; 
+            <?php
+                $specsArray = json_decode($product['specs'], true) ?? [];
                 $specsString = implode("\n", $specsArray);
             ?>
             <textarea name="specs" rows="5" style="width: 100%; padding: 0.75rem; border: 1px solid var(--border-color); border-radius: 8px;"><?= \App\Core\Security::e($specsString) ?></textarea>
@@ -73,7 +73,7 @@
         </div>
         <div class="form-group">
             <label>Meta Description</label>
-            <textarea name="meta_description" rows="3" style="width: 100%; padding: 0.75rem; border: 1px solid var(--border-color); border-radius: 8px;"><?= \App\Core\Security::e($product['meta_description'] ?? '') ?></textarea>
+            <textarea name="meta_description" rows="3" style="width: 100%; padding: 0.75rem; border: 1px solid var(--border-color); border-radius: 8px;"><?= \App\H\Core\Security::e($product['meta_description'] ?? '') ?></textarea>
         </div>
 
         <div class="form-group" style="margin-top: 1rem;">
@@ -88,3 +88,5 @@
         </div>
     </form>
 </div>
+<?php require __DIR__ . '/../layout_footer.php'; ?>
+

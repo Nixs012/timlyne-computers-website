@@ -1,4 +1,4 @@
-<?php require __DIR__ . '/../layout.php'; ?>
+<?php require __DIR__ . '/../layout_header.php'; ?>
 
 <div class="header-action-bar" style="margin-bottom: 2rem;">
     <h2>Create Page</h2>
@@ -51,3 +51,4 @@
         </div>
     </form>
 </div>
+<?php require __DIR__ . '/../layout_footer.php'; ?>

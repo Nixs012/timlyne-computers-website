@@ -6,7 +6,20 @@ use App\Core\Session;
 
 class CategoryController {
     public function index() {
-        $categories = Category::getAll();
+        $page = (int)($_GET['page'] ?? 1);
+        $perPage = 20;
+
+        $total = Category::getTotalCount();
+        $categories = Category::getPaginated($page, $perPage);
+
+        $data = [
+            'title' => 'Manage Categories',
+            'categories' => $categories,
+            'total' => $total,
+            'page' => $page,
+            'perPage' => $perPage
+        ];
+        extract($data);
         require APP_PATH . '/Views/admin/categories.php';
     }
 

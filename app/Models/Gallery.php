@@ -29,15 +29,25 @@ class Gallery {
 
     public static function findById($id) {
         $db = Database::getConnection();
-        $stmt = $db->prepare("SELECT * FROM gallery WHERE id = ?");
+        $stmt = $db->prepare("
+            SELECT g.*, m.file_path as image_url, m.alt_text, m.file_type
+            FROM gallery g
+            JOIN media m ON g.media_id = m.id
+            WHERE g.id = ?
+        ");
         $stmt->execute([$id]);
         return $stmt->fetch();
     }
 
-    public static function create($mediaId, $caption, $isPublished = 1) {
+    public static function create($mediaId, $caption, $isPublished = 1, $sortOrder = 0) {
         $db = Database::getConnection();
-        $stmt = $db->prepare("INSERT INTO gallery (media_id, caption, is_published) VALUES (?, ?, ?)");
-        $stmt->execute([$mediaId, $caption, $isPublished]);
+        if ($sortOrder == 0) {
+            $stmt = $db->query("SELECT MAX(sort_order) FROM gallery");
+            $max = $stmt->fetchColumn();
+            $sortOrder = ($max === null) ? 1 : (int)$max + 1;
+        }
+        $stmt = $db->prepare("INSERT INTO gallery (media_id, caption, is_published, sort_order) VALUES (?, ?, ?, ?)");
+        $stmt->execute([$mediaId, $caption, $isPublished, $sortOrder]);
         return $db->lastInsertId();
     }
 
@@ -55,39 +65,41 @@ class Gallery {
 
     public static function move($id, $direction) {
         $db = Database::getConnection();
+        $db->beginTransaction();
+        try {
+            // 1. Resequence all rows to 1..n to ensure no gaps or duplicates
+            $stmt = $db->query("SELECT id FROM gallery ORDER BY sort_order ASC, id ASC");
+            $rows = $stmt->fetchAll();
+            foreach ($rows as $index => $row) {
+                $db->prepare("UPDATE gallery SET sort_order = ? WHERE id = ?")
+                   ->execute([$index + 1, $row['id']]);
+            }
 
-        $current = self::findById($id);
-        if (!$current) return false;
+            // 2. Find current and neighbor
+            $current = self::findById($id);
+            if (!$current) throw new \Exception("Item not found");
 
-        $sortOrder = $current['sort_order'];
-        $operator = ($direction === 'up') ? '<' : '>';
-        $orderBy = ($direction === 'up') ? 'DESC' : 'ASC';
+            $sortOrder = (int)$current['sort_order'];
+            $operator = ($direction === 'up') ? '<' : '>';
+            $orderBy = ($direction === 'up') ? 'DESC' : 'ASC';
 
-        $stmt = $db->prepare("
-            SELECT id, sort_order FROM gallery
-            WHERE sort_order $operator ?
-            ORDER BY sort_order $orderBy, id ASC
-            LIMIT 1
-        ");
-        $stmt->execute([$sortOrder]);
-        $neighbor = $stmt->fetch();
+            $stmt = $db->prepare("SELECT id, sort_order FROM gallery WHERE sort_order $operator ? ORDER BY sort_order $orderBy, id ASC LIMIT 1");
+            $stmt->execute([$sortOrder]);
+            $neighbor = $stmt->fetch();
 
-        if ($neighbor) {
-            $stmt = $db->prepare("
-                UPDATE gallery
-                SET sort_order = CASE
-                    WHEN id = ? THEN ?
-                    WHEN id = ? THEN ?
-                END
-                WHERE id IN (?, ?)
-            ");
-            return $stmt->execute([
-                $id, $neighbor['sort_order'],
-                $neighbor['id'], $sortOrder,
-                $id, $neighbor['id']
-            ]);
+            if ($neighbor) {
+                $stmt = $db->prepare("UPDATE gallery SET sort_order = CASE WHEN id = ? THEN ? WHEN id = ? THEN ? END WHERE id IN (?, ?)");
+                $stmt->execute([
+                    $id, $neighbor['sort_order'],
+                    $neighbor['id'], $sortOrder,
+                    $id, $neighbor['id']
+                ]);
+            }
+            $db->commit();
+            return true;
+        } catch (\Exception $e) {
+            $db->rollBack();
+            return false;
         }
-
-        return false;
     }
 }

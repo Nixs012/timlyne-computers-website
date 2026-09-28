@@ -1,6 +1,5 @@
-<?php
-$content = ob_start();
-?>
+<?php require __DIR__ . '/layout_header.php'; ?>
+
 <style>
     .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
     .form-group { margin-bottom: 1rem; }
@@ -20,7 +19,7 @@ $content = ob_start();
 
 <form action="/admin/business-settings" method="POST">
     <input type="hidden" name="csrf_token" value="<?= \App\Core\Security::e(\App\Core\Security::generateCsrfToken()) ?>">
-    
+
     <div class="form-grid">
         <div class="form-group full-width">
             <label>Business Name</label>
@@ -67,9 +66,7 @@ $content = ob_start();
             <input type="url" name="social_twitter" value="<?= \App\Core\Security::e($settings['social_twitter'] ?? '') ?>">
         </div>
     </div>
-    
+
     <button type="submit" class="btn">Save Settings</button>
 </form>
-<?php
-$content = ob_get_clean();
-require APP_PATH . '/Views/admin/layout.php';
+<?php require __DIR__ . '/layout_footer.php'; ?>

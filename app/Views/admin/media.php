@@ -1,6 +1,5 @@
-<?php
-$content = ob_start();
-?>
+<?php require __DIR__ . '/layout_header.php'; ?>
+
 <style>
     .media-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 1rem; margin-top: 2rem; }
     .media-item { border: 1px solid #e2e8f0; border-radius: 8px; padding: 0.5rem; background: white; text-align: center; }
@@ -60,7 +59,4 @@ $content = ob_start();
         <p>No images uploaded yet.</p>
     <?php endif; ?>
 </div>
-
-<?php
-$content = ob_get_clean();
-require APP_PATH . '/Views/admin/layout.php';
+<?php require __DIR__ . '/layout_footer.php'; ?>

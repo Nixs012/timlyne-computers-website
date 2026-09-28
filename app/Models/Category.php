@@ -11,6 +11,21 @@ class Category {
         return $stmt->fetchAll();
     }
 
+    public static function getTotalCount() {
+        $db = Database::getConnection();
+        return (int)$db->query("SELECT COUNT(*) FROM categories")->fetchColumn();
+    }
+
+    public static function getPaginated($page, $perPage) {
+        $db = Database::getConnection();
+        $offset = ($page - 1) * $perPage;
+        $stmt = $db->prepare("SELECT * FROM categories ORDER BY sort_order ASC, name ASC LIMIT ? OFFSET ?");
+        $stmt->bindValue(1, (int)$perPage, PDO::PARAM_INT);
+        $stmt->bindValue(2, (int)$offset, PDO::PARAM_INT);
+        $stmt->execute();
+        return $stmt->fetchAll();
+    }
+
     public static function findById($id) {
         $db = Database::getConnection();
         $stmt = $db->prepare("SELECT * FROM categories WHERE id = ?");

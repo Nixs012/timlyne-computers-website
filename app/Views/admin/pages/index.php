@@ -1,4 +1,4 @@
-<?php require __DIR__ . '/../layout.php'; ?>
+<?php require __DIR__ . '/../layout_header.php'; ?>
 
 <div class="header-action-bar" style="display:flex; justify-content: space-between; align-items: center; margin-bottom: 2rem;">
     <h2>Manage Pages</h2>
@@ -55,3 +55,4 @@
         </tbody>
     </table>
 </div>
+<?php require __DIR__ . '/../layout_footer.php'; ?>
