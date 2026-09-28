@@ -195,7 +195,7 @@ $waUrl = "https://wa.me/{$cleanWaNumber}?text=" . rawurlencode($waMsg);
 
   <footer class="footer">
     <div class="container footer__inner">
-      <p>&copy; <span id="year"></span> <?= \App\Core\Security::e($bName) ?>. All rights reserved.</p>
+      <p>&copy; <span id="year"></span> <?= \App\Core\Security::e($bName) ?>. All rights reserved. | <a href="/faq" style="color: inherit;">FAQ</a></p>
       <p><?= \App\Core\Security::e(str_replace("\n", " · ", $bAddress)) ?></p>
     </div>
   </footer>

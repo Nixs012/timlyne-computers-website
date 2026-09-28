@@ -71,6 +71,7 @@ CREATE TABLE faqs (
     question TEXT NOT NULL,
     answer TEXT NOT NULL,
     sort_order INT DEFAULT 0,
+    is_published BOOLEAN DEFAULT TRUE,
     INDEX idx_faqs_sort_order (sort_order)
 );
 

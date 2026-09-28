@@ -47,7 +47,7 @@
 
   <footer class="footer">
     <div class="container footer__inner">
-      <p>&copy; <?= date('Y') ?> Timlyne Computer Solutions Limited. All rights reserved.</p>
+      <p>&copy; <?= date('Y') ?> Timlyne Computer Solutions Limited. All rights reserved. | <a href="/faq" style="color: inherit;">FAQ</a></p>
     </div>
   </footer>
 </body>
