@@ -2,5 +2,6 @@
 /vendor
 /uploads
 .DS_Store
-Thumbs.dbpublic/uploads/*
+Thumbs.db
+public/uploads/*
 !public/uploads/.gitkeep

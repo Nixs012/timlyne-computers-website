@@ -13,6 +13,12 @@ INSERT INTO business_settings (setting_key, setting_value) VALUES
 ('business_phone_2', '0707 302 212'),
 ('business_email', 'info@timlynecomputers.co.ke');
 
+-- Insert default pages
+INSERT INTO pages (title, slug, content, is_published) VALUES
+('About Us', 'about', '<p>Timlyne Computer Solutions Limited is a full-service computer store in Mombasa, supplying businesses and individuals with quality hardware, accessories, and support.</p><p>From Epson printers and original inks to Tenda and TP-Link networking, Lightwave UPS systems, CCTV installations, and complete desktop & laptop solutions — we stock what you need to stay connected and productive.</p>', 1),
+('Privacy Policy', 'privacy-policy', '<p>Your privacy is important to us. This policy explains how we handle your personal data when you visit our website or purchase products from us.</p>', 1),
+('Terms & Conditions', 'terms-conditions', '<p>By using this website, you agree to the following terms and conditions regarding our hardware sales and service agreements.</p>', 1);
+
 -- Insert default chatbot settings
 INSERT INTO chatbot_settings (id, welcome_message, fallback_message, is_enabled, whatsapp_handoff_enabled) 
 VALUES (1, 'Hello! 👋 Welcome to Timlyne Computers. How can I help you today?', 'I am not sure how to answer that. Would you like to speak to a human?', TRUE, TRUE);

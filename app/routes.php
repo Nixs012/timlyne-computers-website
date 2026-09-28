@@ -2,6 +2,9 @@
 // Public routes
 $router->get('/', 'HomeController@index');
 $router->get('/products/[slug]', 'ProductPageController@show');
+$router->get('/about', 'PageController@show');
+$router->get('/privacy-policy', 'PageController@show');
+$router->get('/terms-conditions', 'PageController@show');
 
 // API Endpoints
 $router->get('/api/products', 'Api\ProductController@index');
@@ -18,9 +21,17 @@ $superAdmin = [\App\Core\Middleware\AuthMiddleware::class, \App\Core\Middleware\
 
 $router->get('/admin', 'Admin\DashboardController@index', $auth);
 
+// Page Management
+$router->get('/admin/pages', 'Admin\PageController@index', $auth);
+$router->get('/admin/pages/create', 'Admin\PageController@create', $auth);
+$router->post('/admin/pages', 'Admin\PageController@store', $auth);
+$router->get('/admin/pages/[id]/edit', 'Admin\PageController@edit', $auth);
+$router->post('/admin/pages/[id]/update', 'Admin\PageController@update', $auth);
+$router->post('/admin/pages/[id]/delete', 'Admin\PageController@delete', $auth);
+
 // Sidebar placeholder routes
 $sidebarRoutes = [
-    '/admin/content', '/admin/pages', '/admin/services',
+    '/admin/content', '/admin/services',
     '/admin/gallery', '/admin/messages', '/admin/chatbot',
     '/admin/seo', '/admin/whatsapp'
 ];
