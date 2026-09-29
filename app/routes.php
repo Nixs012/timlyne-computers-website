@@ -3,6 +3,7 @@
 $router->get('/', 'HomeController@index');
 $router->get('/faq', 'FaqController@index');
 $router->get('/gallery', 'GalleryController@index');
+$router->post('/contact/submit', 'ContactController@store');
 $router->get('/products/[slug]', 'ProductPageController@show');
 $router->get('/about', 'PageController@redirectAbout');
 $router->get('/privacy-policy', 'PageController@show');
@@ -22,6 +23,12 @@ $auth = [\App\Core\Middleware\AuthMiddleware::class];
 $superAdmin = [\App\Core\Middleware\AuthMiddleware::class, \App\Core\Middleware\SuperAdminMiddleware::class];
 
 $router->get('/admin', 'Admin\DashboardController@index', $auth);
+
+// Contact Messages Management
+$router->get('/admin/messages', 'Admin\ContactController@index', $auth);
+$router->get('/admin/messages/[id]', 'Admin\ContactController@show', $auth);
+$router->post('/admin/messages/[id]/status', 'Admin\ContactController@updateStatus', $auth);
+$router->post('/admin/messages/[id]/delete', 'Admin\ContactController@delete', $auth);
 
 // FAQ Management
 $router->get('/admin/faqs', 'Admin\FaqController@index', $auth);
@@ -52,7 +59,7 @@ $router->post('/admin/pages/[id]/delete', 'Admin\PageController@delete', $auth);
 // Sidebar placeholder routes
 $sidebarRoutes = [
     '/admin/content', '/admin/services',
-    '/admin/messages', '/admin/chatbot',
+    '/admin/chatbot',
     '/admin/seo', '/admin/whatsapp'
 ];
 foreach ($sidebarRoutes as $route) {

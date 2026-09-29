@@ -168,26 +168,81 @@ $waUrl = "https://wa.me/{$cleanWaNumber}?text=" . rawurlencode($waMsg);
 
     <section class="contact" id="contact">
       <div class="container contact__grid">
-        <div>
-          <h2 class="section-title section-title--light">Get in touch</h2>
-          <p class="contact__tagline">Visit us or call — we're ready to help.</p>
-        </div>
-        <div class="contact__cards">
-          <article class="contact-card">
-            <h3>Location</h3>
-            <p><?= nl2br(\App\Core\Security::e($bAddress)) ?></p>
-          </article>
-          <article class="contact-card">
-            <h3>Phone</h3>
-            <p><a href="tel:<?= preg_replace('/[^0-9+]/', '', $bPhone1) ?>"><?= \App\Core\Security::e($bPhone1) ?></a></p>
-            <?php if ($bPhone2): ?>
-            <p><a href="tel:<?= preg_replace('/[^0-9+]/', '', $bPhone2) ?>"><?= \App\Core\Security::e($bPhone2) ?></a></p>
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; align-items: start;">
+          <div>
+            <h2 class="section-title section-title--light">Get in touch</h2>
+            <p class="contact__tagline">Visit us or call — we're ready to help.</p>
+
+            <?php if ($msg = \App\Core\Session::get('success')): ?>
+                <div style="background: #dcfce7; color: #166534; padding: 1rem; border-radius: 8px; margin-bottom: 1.5rem; border: 1px solid #bbf7d0;">
+                    <?= \App\Core\Security::e($msg) ?>
+                </div>
+                <?php \App\Core\Session::set('success', null); ?>
             <?php endif; ?>
-          </article>
-          <article class="contact-card">
-            <h3>Email</h3>
-            <p><a href="mailto:<?= \App\Core\Security::e($bEmail) ?>"><?= \App\Core\Security::e($bEmail) ?></a></p>
-          </article>
+            <?php if ($msg = \App\Core\Session::get('error')): ?>
+                <div style="background: #fee2e2; color: #991b1b; padding: 1rem; border-radius: 8px; margin-bottom: 1.5rem; border: 1px solid #fecaca;">
+                    <?= \App\Core\Security::e($msg) ?>
+                </div>
+                <?php \App\Core\Session::set('error', null); ?>
+            <?php endif; ?>
+
+            <div class="contact__cards">
+              <article class="contact-card">
+                <h3>Location</h3>
+                <p><?= nl2br(\App\Core\Security::e($bAddress)) ?></p>
+              </article>
+              <article class="contact-card">
+                <h3>Phone</h3>
+                <p><a href="tel:<?= preg_replace('/[^0-9+]/', '', $bPhone1) ?>"><?= \App\Core\Security::e($bPhone1) ?></a></p>
+                <?php if ($bPhone2): ?>
+                <p><a href="tel:<?= preg_replace('/[^0-9+]/', '', $bPhone2) ?>"><?= \App\Core\Security::e($bPhone2) ?></a></p>
+                <?php endif; ?>
+              </article>
+              <article class="contact-card">
+                <h3>Email</h3>
+                <p><a href="mailto:<?= \App\Core\Security::e($bEmail) ?>"><?= \App\Core\Security::e($bEmail) ?></a></p>
+              </article>
+            </div>
+          </div>
+
+          <div class="contact-form-wrap">
+            <form action="/contact/submit" method="POST" style="display: flex; flex-direction: column; gap: 1rem; background: white; padding: 2rem; border-radius: 12px; border: 1px solid #e2e8f0; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1);">
+              <input type="hidden" name="csrf_token" value="<?= \App\Core\Security::generateCsrfToken() ?>">
+
+              <!-- Honeypot -->
+              <div style="position: absolute; left: -9999px; top: auto; width: 1px; height: 1px; overflow: hidden;">
+                <input type="text" name="website" tabindex="-1" autocomplete="off">
+              </div>
+
+              <div style="display: flex; flex-direction: column; gap: 0.5rem;">
+                <label style="font-weight: 600; font-size: 0.9rem;">Name *</label>
+                <input type="text" name="name" value="<?= \App\Core\Security::e($_SESSION['contact_form']['name'] ?? '') ?>" required style="padding: 0.75rem; border: 1px solid #cbd5e1; border-radius: 6px; font-family: inherit;">
+              </div>
+              <div style="display: flex; flex-direction: column; gap: 0.5rem;">
+                <label style="font-weight: 600; font-size: 0.9rem;">Email *</label>
+                <input type="email" name="email" value="<?= \App\Core\Security::e($_SESSION['contact_form']['email'] ?? '') ?>" required style="padding: 0.75rem; border: 1px solid #cbd5e1; border-radius: 6px; font-family: inherit;">
+              </div>
+              <div style="display: flex; flex-direction: column; gap: 0.5rem;">
+                <label style="font-weight: 600; font-size: 0.9rem;">Phone</label>
+                <input type="text" name="phone" value="<?= \App\Core\Security::e($_SESSION['contact_form']['phone'] ?? '') ?>" style="padding: 0.75rem; border: 1px solid #cbd5e1; border-radius: 6px; font-family: inherit;">
+              </div>
+              <div style="display: flex; flex-direction: column; gap: 0.5rem;">
+                <label style="font-weight: 600; font-size: 0.9rem;">Subject</label>
+                <input type="text" name="subject" value="<?= \App\Core\Security::e($_SESSION['contact_form']['subject'] ?? '') ?>" style="padding: 0.75rem; border: 1px solid #cbd5e1; border-radius: 6px; font-family: inherit;">
+              </div>
+              <div style="display: flex; flex-direction: column; gap: 0.5rem;">
+                <label style="font-weight: 600; font-size: 0.9rem;">Message *</label>
+                <textarea name="message" rows="4" required style="padding: 0.75rem; border: 1px solid #cbd5e1; border-radius: 6px; font-family: inherit; resize: vertical;"><?= \App\Core\Security::e($_SESSION['contact_form']['message'] ?? '') ?></textarea>
+              </div>
+
+              <button type="submit" class="btn btn--primary" style="margin-top: 0.5rem; cursor: pointer;">Send Message</button>
+              <?php
+                if (isset($_SESSION['contact_form'])) {
+                    \App\Core\Session::set('contact_form', null);
+                }
+              ?>
+            </form>
+          </div>
         </div>
       </div>
     </section>
