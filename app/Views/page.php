@@ -62,7 +62,7 @@
 
   <footer class="footer">
     <div class="container footer__inner">
-      <p>&copy; <span id="year"><?= date('Y') ?></span> <?= \App\Core\Security::e($bName) ?>. All rights reserved. | <a href="/faq" style="color: inherit;">FAQ</a></p>
+      <p>&copy; <span id="year"><?= date('Y') ?></span> <?= \App\Core\Security::e($bName) ?>. All rights reserved. | <a href="/faq" style="color: inherit;">FAQ</a> | <a href="/gallery" style="color: inherit;">Gallery</a></p>
     </div>
   </footer>
 

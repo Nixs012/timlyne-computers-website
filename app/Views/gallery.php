@@ -10,67 +10,50 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&family=Outfit:wght@500;600;700;800&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="/css/styles.css" />
-  <?php if (!empty($faqs)): ?>
-  <script type="application/ld+json">
-    <?php
-    $jsonLd = [
-        "@context" => "https://schema.org",
-        "@type" => "FAQPage",
-        "mainEntity" => array_map(fn($f) => [
-            "@type" => "Question",
-            "name" => $f['question'],
-            "acceptedAnswer" => [
-                "@type" => "Answer",
-                "text" => $f['answer']
-            ]
-        ], $faqs)
-    ];
-    echo json_encode($jsonLd, JSON_HEX_TAG | JSON_HEX_AMP | JSON_UNESCAPED_UNICODE);
-    ?>
-  </script>
-  <?php endif; ?>
   <style>
     .page-container {
-        max-width: 800px;
+        max-width: 1000px;
         margin: 4rem auto;
         padding: 0 1rem;
     }
-    .faq-list {
+    .gallery-grid {
         display: grid;
-        gap: 1rem;
+        grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+        gap: 1.5rem;
         margin-top: 2rem;
     }
-    details {
+    .gallery-item {
         background: white;
         border: 1px solid #e2e8f0;
-        border-radius: 8px;
+        border-radius: 12px;
         overflow: hidden;
-    }
-    summary {
-        padding: 1rem;
-        font-weight: 600;
-        cursor: pointer;
-        list-style: none;
         display: flex;
-        justify-content: space-between;
-        align-items: center;
+        flex-direction: column;
+        transition: transform 0.2s ease;
+    }
+    .gallery-item:hover {
+        transform: translateY(-4px);
+    }
+    .image-container {
+        width: 100%;
+        aspect-ratio: 4/3;
+        overflow: hidden;
         background: #f8fafc;
     }
-    summary::-webkit-details-marker { display: none; }
-    summary::after {
-        content: '→';
-        transition: transform 0.2s;
+    .image-container img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        display: block;
     }
-    details[open] summary::after {
-        transform: rotate(90deg);
-    }
-    .faq-answer {
+    .gallery-caption {
         padding: 1rem;
-        border-top: 1px solid #e2e8f0;
-        line-height: 1.6;
+        font-size: 0.95rem;
         color: var(--text-color);
+        line-height: 1.5;
+        border-top: 1px solid #e2e8f0;
     }
-    .empty-faq {
+    .empty-gallery {
         text-align: center;
         padding: 3rem 0;
     }
@@ -101,20 +84,26 @@
     <div class="page-container">
       <h1 class="section-title"><?= \App\Core\Security::e($title) ?></h1>
 
-      <?php if (!empty($faqs)): ?>
-        <div class="faq-list">
-          <?php foreach ($faqs as $f): ?>
-          <details>
-            <summary><?= \App\Core\Security::e($f['question']) ?></summary>
-            <div class="faq-answer">
-              <?= nl2br(\App\Core\Security::e($f['answer'])) ?>
-            </div>
-          </details>
+      <?php if (!empty($gallery)): ?>
+        <div class="gallery-grid">
+          <?php foreach ($gallery as $item): ?>
+            <figure class="gallery-item">
+              <div class="image-container">
+                <img src="<?= \App\Core\Security::e($item['file_path']) ?>"
+                     alt="<?= \App\Core\Security::e($item['alt_text'] ?? ($item['caption'] ?? '')) ?>"
+                     loading="lazy" />
+              </div>
+              <?php if (!empty($item['caption'])): ?>
+                <figcaption class="gallery-caption">
+                  <?= \App\Core\Security::e($item['caption']) ?>
+                </figcaption>
+              <?php endif; ?>
+            </figure>
           <?php endforeach; ?>
         </div>
       <?php else: ?>
-        <div class="empty-faq">
-          <p>We don't have any FAQs listed at the moment.</p>
+        <div class="empty-gallery">
+          <p>We don't have any gallery images listed at the moment.</p>
           <a href="<?= \App\Core\Security::e($waUrl) ?>" class="btn btn--primary" target="_blank" rel="noopener noreferrer">Chat with us on WhatsApp</a>
         </div>
       <?php endif; ?>

@@ -2,6 +2,7 @@
 // Public routes
 $router->get('/', 'HomeController@index');
 $router->get('/faq', 'FaqController@index');
+$router->get('/gallery', 'GalleryController@index');
 $router->get('/products/[slug]', 'ProductPageController@show');
 $router->get('/about', 'PageController@redirectAbout');
 $router->get('/privacy-policy', 'PageController@show');
