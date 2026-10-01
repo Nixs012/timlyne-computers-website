@@ -35,6 +35,9 @@ class PageController {
         $bName = $settings['business_name'] ?? 'Timlyne Computer Solutions Limited';
         $metaDescription = $page['meta_description'] ?? '';
 
+        $scheme = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off') ? 'https' : 'http';
+        $canonicalUrl = $scheme . '://' . ($_SERVER['HTTP_HOST'] ?? 'localhost') . '/' . $page['slug'];
+
         require_once __DIR__ . '/../Views/page.php';
     }
 }

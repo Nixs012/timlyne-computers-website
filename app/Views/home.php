@@ -283,7 +283,7 @@ if (!empty($ogImage)) { $localBusinessData['image'] = $ogImage; }
 
   <footer class="footer">
     <div class="container footer__inner">
-      <p>&copy; <span id="year"></span> <?= \App\Core\Security::e($bName) ?>. All rights reserved. | <a href="/faq" style="color: inherit;">FAQ</a> | <a href="/gallery" style="color: inherit;">Gallery</a></p>
+      <p>&copy; <span id="year"></span> <?= \App\Core\Security::e($bName) ?>. All rights reserved. | <a href="/faq" style="color: inherit;">FAQ</a> | <a href="/gallery" style="color: inherit;">Gallery</a> | <a href="/privacy-policy" style="color: inherit;">Privacy Policy</a> | <a href="/terms-conditions" style="color: inherit;">Terms &amp; Conditions</a></p>
       <p><?= \App\Core\Security::e(str_replace("\n", " · ", $bAddress)) ?></p>
     </div>
   </footer>

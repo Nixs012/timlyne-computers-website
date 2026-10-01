@@ -5,6 +5,11 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="description" content="<?= \App\Core\Security::e($metaDescription) ?>" />
   <title><?= \App\Core\Security::e($title) ?> | <?= \App\Core\Security::e($bName) ?></title>
+  <link rel="canonical" href="<?= \App\Core\Security::e($canonicalUrl) ?>" />
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="<?= \App\Core\Security::e($title) ?>" />
+  <meta property="og:description" content="<?= \App\Core\Security::e($metaDescription) ?>" />
+  <meta property="og:url" content="<?= \App\Core\Security::e($canonicalUrl) ?>" />
   <link rel="icon" href="/assets/logo.png" type="image/png" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -62,7 +67,7 @@
 
   <footer class="footer">
     <div class="container footer__inner">
-      <p>&copy; <span id="year"><?= date('Y') ?></span> <?= \App\Core\Security::e($bName) ?>. All rights reserved. | <a href="/faq" style="color: inherit;">FAQ</a> | <a href="/gallery" style="color: inherit;">Gallery</a></p>
+      <p>&copy; <span id="year"><?= date('Y') ?></span> <?= \App\Core\Security::e($bName) ?>. All rights reserved. | <a href="/faq" style="color: inherit;">FAQ</a> | <a href="/gallery" style="color: inherit;">Gallery</a> | <a href="/privacy-policy" style="color: inherit;">Privacy Policy</a> | <a href="/terms-conditions" style="color: inherit;">Terms &amp; Conditions</a></p>
     </div>
   </footer>
 

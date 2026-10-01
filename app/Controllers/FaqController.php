@@ -18,6 +18,9 @@ class FaqController {
         $bName = $settings['business_name'] ?? 'Timlyne Computer Solutions Limited';
         $metaDescription = 'Common questions and answers about Timlyne Computer Solutions.';
 
+        $scheme = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off') ? 'https' : 'http';
+        $canonicalUrl = $scheme . '://' . ($_SERVER['HTTP_HOST'] ?? 'localhost') . '/faq';
+
         require_once __DIR__ . '/../Views/faq.php';
     }
 }
