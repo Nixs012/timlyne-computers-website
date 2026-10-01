@@ -4,7 +4,16 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title><?= \App\Core\Security::e($product['meta_title'] ?: $product['name'] . ' - ' . ($settings['business_name'] ?? 'Timlyne Computers')) ?></title>
-    <meta name="description" content="<?= \App\Core\Security::e($product['meta_description'] ?: $product['description']) ?>">
+    <meta name="description" content="<?= \App\Core\Security::e($productDescription) ?>">
+    <link rel="canonical" href="<?= \App\Core\Security::e($canonicalUrl) ?>" />
+    <meta property="og:type" content="product" />
+    <meta property="og:title" content="<?= \App\Core\Security::e($product['meta_title'] ?: $product['name']) ?>" />
+    <meta property="og:description" content="<?= \App\Core\Security::e($productDescription) ?>" />
+    <meta property="og:url" content="<?= \App\Core\Security::e($canonicalUrl) ?>" />
+    <?php if ($ogImage): ?>
+    <meta property="og:image" content="<?= \App\Core\Security::e($ogImage) ?>" />
+    <?php endif; ?>
+    <script type="application/ld+json"><?= json_encode($productJsonLd, JSON_HEX_TAG | JSON_HEX_AMP | JSON_UNESCAPED_UNICODE) ?></script>
     <link rel="stylesheet" href="/css/styles.css">
     <style>
         .product-detail-container {
