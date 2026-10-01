@@ -4,6 +4,7 @@ $router->get('/', 'HomeController@index');
 $router->get('/faq', 'FaqController@index');
 $router->get('/gallery', 'GalleryController@index');
 $router->post('/contact/submit', 'ContactController@store');
+$router->get('/sitemap.xml', 'SitemapController@index');
 $router->get('/products/[slug]', 'ProductPageController@show');
 $router->get('/about', 'PageController@redirectAbout');
 $router->get('/privacy-policy', 'PageController@show');

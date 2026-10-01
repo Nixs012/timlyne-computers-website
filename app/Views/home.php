@@ -13,6 +13,30 @@ $heroLead = $settings['hero_lead'] ?? 'Desktops, Laptops, Printers, CCTV, Networ
 
 $cleanWaNumber = preg_replace('/[^0-9]/', '', $bWhatsapp);
 $waUrl = "https://wa.me/{$cleanWaNumber}?text=" . rawurlencode($waMsg);
+
+$scheme = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off') ? 'https' : 'http';
+$canonicalUrl = $scheme . '://' . ($_SERVER['HTTP_HOST'] ?? 'localhost') . '/';
+$ogImage = !empty($settings['business_logo']) ? $canonicalUrl . ltrim($settings['business_logo'], '/') : null;
+$openingHours = $settings['opening_hours'] ?? null;
+
+$localBusinessData = [
+    '@context' => 'https://schema.org',
+    '@type' => 'LocalBusiness',
+    'name' => $bName,
+    'url' => $canonicalUrl,
+];
+if (!empty($bPhone1)) { $localBusinessData['telephone'] = $bPhone1; }
+if (!empty($bEmail)) { $localBusinessData['email'] = $bEmail; }
+if (!empty($bAddress)) {
+    $localBusinessData['address'] = [
+        '@type' => 'PostalAddress',
+        'streetAddress' => $bAddress,
+        'addressLocality' => 'Mombasa',
+        'addressCountry' => 'KE',
+    ];
+}
+if (!empty($openingHours)) { $localBusinessData['openingHours'] = $openingHours; }
+if (!empty($ogImage)) { $localBusinessData['image'] = $ogImage; }
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -21,6 +45,15 @@ $waUrl = "https://wa.me/{$cleanWaNumber}?text=" . rawurlencode($waMsg);
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="description" content="<?= \App\Core\Security::e($bName) ?> — Desktops, Laptops, Printers, CCTV, Networking & more in Mombasa, Kenya." />
   <title><?= \App\Core\Security::e($bName) ?> | Mombasa</title>
+  <link rel="canonical" href="<?= \App\Core\Security::e($canonicalUrl) ?>" />
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="<?= \App\Core\Security::e($bName) ?>" />
+  <meta property="og:description" content="<?= \App\Core\Security::e($bName) ?> — Desktops, Laptops, Printers, CCTV, Networking & more in Mombasa, Kenya." />
+  <meta property="og:url" content="<?= \App\Core\Security::e($canonicalUrl) ?>" />
+  <?php if ($ogImage): ?>
+  <meta property="og:image" content="<?= \App\Core\Security::e($ogImage) ?>" />
+  <?php endif; ?>
+  <script type="application/ld+json"><?= json_encode($localBusinessData, JSON_HEX_TAG | JSON_HEX_AMP | JSON_UNESCAPED_UNICODE) ?></script>
   <link rel="icon" href="/assets/logo.png" type="image/png" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
