@@ -60,7 +60,6 @@ $router->post('/admin/pages/[id]/delete', 'Admin\PageController@delete', $auth);
 // Sidebar placeholder routes
 $sidebarRoutes = [
     '/admin/content', '/admin/services',
-    '/admin/chatbot',
     '/admin/seo', '/admin/whatsapp'
 ];
 $seoRouteIndex = array_search('/admin/seo', $sidebarRoutes, true);
@@ -70,6 +69,9 @@ if ($seoRouteIndex !== false) {
 foreach ($sidebarRoutes as $route) {
     $router->get($route, 'Admin\DashboardController@placeholder', $auth);
 }
+
+$router->get('/admin/chatbot', 'Admin\ChatbotController@index', $auth);
+$router->post('/admin/chatbot', 'Admin\ChatbotController@save', $auth);
 
 $router->get('/admin/seo', 'Admin\SeoController@index', $auth);
 $router->post('/admin/seo', 'Admin\SeoController@save', $auth);
