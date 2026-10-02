@@ -27,9 +27,7 @@ class PageController {
         $settings = Setting::getAll();
         
         $phone = $settings['business_phone_1'] ?? '';
-        $cleanWaNumber = preg_replace('/[^0-9]/', '', $settings['business_whatsapp'] ?? '');
-        $waMsg = $settings['whatsapp_default_message'] ?? '';
-        $waUrl = "https://wa.me/{$cleanWaNumber}?text=" . rawurlencode($waMsg);
+        $waUrl = Setting::getWhatsAppUrl($settings);
         
         $title = !empty($page['meta_title']) ? $page['meta_title'] : $page['title'];
         $bName = $settings['business_name'] ?? 'Timlyne Computer Solutions Limited';

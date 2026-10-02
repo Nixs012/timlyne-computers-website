@@ -4,15 +4,11 @@ $bPhone1 = $settings['business_phone_1'] ?? '0724 407 638';
 $bPhone2 = $settings['business_phone_2'] ?? '0707 302 212';
 $bEmail = $settings['business_email'] ?? 'info@timlynecomputers.co.ke';
 $bAddress = $settings['business_address'] ?? "Mwembe Tayari, Hiltop Plaza\n1st Floor, Shop No. M25\nMombasa, Kenya";
-$bWhatsapp = $settings['business_whatsapp'] ?? '+254724407638';
-$waMsg = $settings['whatsapp_default_message'] ?? 'Hello, I would like to know more about your products/services.';
-
 $heroBadge = $settings['hero_badge'] ?? 'Hiltop Plaza (1st Floor Shop No. M25) . Mwembe Tayari . Mombasa · Kenya';
 $heroHeadline = $settings['hero_headline'] ?? 'Your trusted partner for <span>computers & tech</span>';
 $heroLead = $settings['hero_lead'] ?? 'Desktops, Laptops, Printers, CCTV, Networking Gear, UPS, Inks, Routers, Cables, Plotters, Heatpress Machines, Storage & more — all under one roof.';
 
-$cleanWaNumber = preg_replace('/[^0-9]/', '', $bWhatsapp);
-$waUrl = "https://wa.me/{$cleanWaNumber}?text=" . rawurlencode($waMsg);
+$waUrl = \App\Models\Setting::getWhatsAppUrl($settings);
 
 $scheme = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off') ? 'https' : 'http';
 $canonicalUrl = $scheme . '://' . ($_SERVER['HTTP_HOST'] ?? 'localhost') . '/';

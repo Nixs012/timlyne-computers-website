@@ -19,9 +19,9 @@ class SettingsController {
 
         $keys = [
             'business_name', 'business_phone_1', 'business_phone_2',
-            'business_whatsapp', 'business_email', 'business_address',
-            'opening_hours', 'google_maps_url', 'social_facebook',
-            'social_instagram', 'social_twitter'
+            'business_whatsapp', 'whatsapp_default_message', 'business_email',
+            'business_address', 'opening_hours', 'google_maps_url',
+            'social_facebook', 'social_instagram', 'social_twitter'
         ];
 
         foreach ($keys as $key) {

@@ -38,6 +38,10 @@
             <input type="text" name="business_whatsapp" value="<?= \App\Core\Security::e($settings['business_whatsapp'] ?? '') ?>">
         </div>
         <div class="form-group">
+            <label>Default WhatsApp Message</label>
+            <input type="text" name="whatsapp_default_message" value="<?= \App\Core\Security::e($settings['whatsapp_default_message'] ?? '') ?>">
+        </div>
+        <div class="form-group">
             <label>Email Address</label>
             <input type="email" name="business_email" value="<?= \App\Core\Security::e($settings['business_email'] ?? '') ?>">
         </div>

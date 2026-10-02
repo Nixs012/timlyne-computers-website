@@ -18,7 +18,7 @@
   <style>
     .page-container {
         max-width: 1000px;
-        margin: 4rem auto;
+        margin: calc(var(--header-h, 80px) + 3rem) auto 4rem;
         padding: 0 1rem;
     }
     .gallery-grid {
