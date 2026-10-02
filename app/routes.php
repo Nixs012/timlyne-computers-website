@@ -105,4 +105,5 @@ $router->get('/admin/security', 'Admin\DashboardController@placeholder', $superA
 $router->get('/admin/system-settings', 'Admin\DashboardController@placeholder', $superAdmin);
 
 // Catch-all for dynamic pages
+$router->post('/chatbot/ask', 'ChatbotController@ask');
 $router->get('/[slug]', 'PageController@show');
