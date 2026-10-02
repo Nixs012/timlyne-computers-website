@@ -4,10 +4,10 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="description" content="<?= \App\Core\Security::e($metaDescription) ?>" />
-  <title><?= \App\Core\Security::e($title) ?> | <?= \App\Core\Security::e($bName) ?></title>
+  <title><?= \App\Core\Security::e($metaTitle) ?></title>
   <link rel="canonical" href="<?= \App\Core\Security::e($canonicalUrl) ?>" />
   <meta property="og:type" content="website" />
-  <meta property="og:title" content="<?= \App\Core\Security::e($title) ?>" />
+  <meta property="og:title" content="<?= \App\Core\Security::e($metaTitle) ?>" />
   <meta property="og:description" content="<?= \App\Core\Security::e($metaDescription) ?>" />
   <meta property="og:url" content="<?= \App\Core\Security::e($canonicalUrl) ?>" />
   <link rel="icon" href="/assets/logo.png" type="image/png" />

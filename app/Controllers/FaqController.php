@@ -15,6 +15,9 @@ class FaqController {
         $title = 'Frequently Asked Questions';
         $bName = $settings['business_name'] ?? 'Timlyne Computer Solutions Limited';
         $metaDescription = 'Common questions and answers about Timlyne Computer Solutions.';
+        $seoSettings = Setting::getAllSeo();
+        $metaTitle = trim($seoSettings['faq_meta_title'] ?? '') !== '' ? $seoSettings['faq_meta_title'] : $title . ' | ' . $bName;
+        $metaDescription = trim($seoSettings['faq_meta_description'] ?? '') !== '' ? $seoSettings['faq_meta_description'] : $metaDescription;
 
         $scheme = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off') ? 'https' : 'http';
         $canonicalUrl = $scheme . '://' . ($_SERVER['HTTP_HOST'] ?? 'localhost') . '/faq';

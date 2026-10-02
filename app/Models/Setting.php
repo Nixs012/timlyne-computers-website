@@ -4,6 +4,25 @@ namespace App\Models;
 use App\Config\Database;
 
 class Setting {
+    public static function getAllSeo() {
+        $db = Database::getConnection();
+        $stmt = $db->query("SELECT setting_key, setting_value FROM seo_settings");
+        $result = [];
+        foreach ($stmt->fetchAll() as $row) {
+            $result[$row['setting_key']] = $row['setting_value'];
+        }
+        return $result;
+    }
+
+    public static function saveSeo($data) {
+        $db = Database::getConnection();
+        $stmt = $db->prepare("INSERT INTO seo_settings (setting_key, setting_value) VALUES (?, ?) ON DUPLICATE KEY UPDATE setting_value = ?");
+        foreach ($data as $key => $value) {
+            $value = trim($value);
+            $stmt->execute([$key, $value, $value]);
+        }
+    }
+
     public static function getAll() {
         $db = Database::getConnection();
         $stmt = $db->query("SELECT setting_key, setting_value FROM business_settings");

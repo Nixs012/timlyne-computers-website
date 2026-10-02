@@ -1,5 +1,8 @@
 <?php
 $bName = $settings['business_name'] ?? 'Timlyne Computer Solutions Limited';
+$homeMetaTitle = trim($seoSettings['home_meta_title'] ?? '') !== '' ? $seoSettings['home_meta_title'] : $bName . ' | Mombasa';
+$homeMetaDescription = trim($seoSettings['home_meta_description'] ?? '') !== '' ? $seoSettings['home_meta_description'] : $bName . ' — Desktops, Laptops, Printers, CCTV, Networking & more in Mombasa, Kenya.';
+$googleSearchConsoleVerification = trim($seoSettings['google_search_console_verification'] ?? '');
 $bPhone1 = $settings['business_phone_1'] ?? '0724 407 638';
 $bPhone2 = $settings['business_phone_2'] ?? '0707 302 212';
 $bEmail = $settings['business_email'] ?? 'info@timlynecomputers.co.ke';
@@ -39,8 +42,11 @@ if (!empty($ogImage)) { $localBusinessData['image'] = $ogImage; }
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description" content="<?= \App\Core\Security::e($bName) ?> — Desktops, Laptops, Printers, CCTV, Networking & more in Mombasa, Kenya." />
-  <title><?= \App\Core\Security::e($bName) ?> | Mombasa</title>
+  <meta name="description" content="<?= \App\Core\Security::e($homeMetaDescription) ?>" />
+  <title><?= \App\Core\Security::e($homeMetaTitle) ?></title>
+  <?php if ($googleSearchConsoleVerification !== ''): ?>
+  <meta name="google-site-verification" content="<?= \App\Core\Security::e($googleSearchConsoleVerification) ?>" />
+  <?php endif; ?>
   <link rel="canonical" href="<?= \App\Core\Security::e($canonicalUrl) ?>" />
   <meta property="og:type" content="website" />
   <meta property="og:title" content="<?= \App\Core\Security::e($bName) ?>" />

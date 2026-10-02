@@ -63,9 +63,16 @@ $sidebarRoutes = [
     '/admin/chatbot',
     '/admin/seo', '/admin/whatsapp'
 ];
+$seoRouteIndex = array_search('/admin/seo', $sidebarRoutes, true);
+if ($seoRouteIndex !== false) {
+    unset($sidebarRoutes[$seoRouteIndex]);
+}
 foreach ($sidebarRoutes as $route) {
     $router->get($route, 'Admin\DashboardController@placeholder', $auth);
 }
+
+$router->get('/admin/seo', 'Admin\SeoController@index', $auth);
+$router->post('/admin/seo', 'Admin\SeoController@save', $auth);
 
 // Media Library routes (Editor & Super Admin)
 $router->get('/admin/media', 'Admin\MediaController@index', $auth);
