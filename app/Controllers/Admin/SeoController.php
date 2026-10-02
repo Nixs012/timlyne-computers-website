@@ -9,6 +9,7 @@ class SeoController {
     public function index() {
         $title = 'SEO Settings';
         $settings = Setting::getAllSeo();
+        $seoWarnings = Setting::getSeoWarnings();
         $businessSettings = Setting::getAll();
         $businessName = $businessSettings['business_name'] ?? 'Timlyne Computer Solutions Limited';
         $fallbacks = [
@@ -19,6 +20,19 @@ class SeoController {
             'gallery_meta_title' => 'Gallery | ' . $businessName,
             'gallery_meta_description' => 'Browse our gallery of work and installations at Timlyne Computer Solutions.',
         ];
+        $robotsExists = is_file(ROOT_PATH . '/public/robots.txt');
+        $sitemapStatus = null;
+        $host = $_SERVER['HTTP_HOST'] ?? '';
+        if (preg_match('/\A[a-z0-9.-]+(?::[0-9]{1,5})?\z/i', $host)) {
+            $scheme = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off') ? 'https' : 'http';
+            $context = stream_context_create(['http' => ['timeout' => 3, 'ignore_errors' => true]]);
+            $http_response_header = [];
+            @file_get_contents($scheme . '://' . $host . '/sitemap.xml', false, $context);
+            $statusLine = $http_response_header ? end($http_response_header) : '';
+            if (preg_match('/\s([0-9]{3})(?:\s|$)/', $statusLine, $statusMatch)) {
+                $sitemapStatus = (int)$statusMatch[1];
+            }
+        }
         require APP_PATH . '/Views/admin/seo.php';
     }
 
