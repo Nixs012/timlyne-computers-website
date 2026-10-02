@@ -3,6 +3,7 @@ namespace App\Controllers;
 
 use App\Models\Page;
 use App\Models\Setting;
+use App\Models\ChatbotSetting;
 
 class PageController {
     public function redirectAbout() {
@@ -25,6 +26,7 @@ class PageController {
         }
 
         $settings = Setting::getAll();
+        $chatbotSettings = ChatbotSetting::getChatbotSettings();
         
         $phone = $settings['business_phone_1'] ?? '';
         $waUrl = Setting::getWhatsAppUrl($settings);

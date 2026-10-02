@@ -61,6 +61,9 @@ if (!empty($ogImage)) { $localBusinessData['image'] = $ogImage; }
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&family=Outfit:wght@500;600;700;800&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="/css/styles.css" />
+  <?php if (!empty($chatbotSettings['is_enabled'])): ?>
+  <link rel="stylesheet" href="/css/chatbot.css" />
+  <?php endif; ?>
   <style>
     .floating-wa {
         position: fixed;
@@ -326,5 +329,9 @@ if (!empty($ogImage)) { $localBusinessData['image'] = $ogImage; }
     };
   </script>
   <script src="js/app.js"></script>
+  <?php if (!empty($chatbotSettings['is_enabled'])): ?>
+  <div class="chatbot-widget" data-chatbot-root data-welcome-message="<?= \App\Core\Security::e($chatbotSettings['welcome_message'] ?? '') ?>" data-csrf-token="<?= \App\Core\Security::e(\App\Core\Security::generateCsrfToken()) ?>" data-whatsapp-url="<?= \App\Core\Security::e(\App\Models\Setting::getWhatsAppUrl($settings, 'I would like to speak to a human')) ?>"></div>
+  <script src="/js/chatbot.js" defer></script>
+  <?php endif; ?>
 </body>
 </html>

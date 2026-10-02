@@ -3,11 +3,13 @@ namespace App\Controllers;
 
 use App\Models\Faq;
 use App\Models\Setting;
+use App\Models\ChatbotSetting;
 
 class FaqController {
     public function index() {
         $faqs = Faq::getPublished();
         $settings = Setting::getAll();
+        $chatbotSettings = ChatbotSetting::getChatbotSettings();
 
         $phone = $settings['business_phone_1'] ?? '';
         $waUrl = Setting::getWhatsAppUrl($settings);

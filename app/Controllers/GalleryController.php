@@ -3,11 +3,13 @@ namespace App\Controllers;
 
 use App\Models\Gallery;
 use App\Models\Setting;
+use App\Models\ChatbotSetting;
 
 class GalleryController {
     public function index() {
         $gallery = Gallery::getPublishedWithMedia();
         $settings = Setting::getAll();
+        $chatbotSettings = ChatbotSetting::getChatbotSettings();
 
         $phone = $settings['business_phone_1'] ?? '';
         $waUrl = Setting::getWhatsAppUrl($settings);
