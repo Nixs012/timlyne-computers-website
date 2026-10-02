@@ -42,6 +42,11 @@
             <input type="text" name="whatsapp_default_message" value="<?= \App\Core\Security::e($settings['whatsapp_default_message'] ?? '') ?>">
         </div>
         <div class="form-group">
+            <label>Product Inquiry WhatsApp Message</label>
+            <input type="text" name="product_inquiry_whatsapp_message" value="<?= \App\Core\Security::e($settings['product_inquiry_whatsapp_message'] ?? '') ?>">
+            <small>Use {product_name} and {price} as placeholders. Leave blank to use the default: Hi, I am interested in {product_name} listed at Ksh {price}.</small>
+        </div>
+        <div class="form-group">
             <label>Email Address</label>
             <input type="email" name="business_email" value="<?= \App\Core\Security::e($settings['business_email'] ?? '') ?>">
         </div>

@@ -19,7 +19,7 @@ class SettingsController {
 
         $keys = [
             'business_name', 'business_phone_1', 'business_phone_2',
-            'business_whatsapp', 'whatsapp_default_message', 'business_email',
+            'business_whatsapp', 'whatsapp_default_message', 'product_inquiry_whatsapp_message', 'business_email',
             'business_address', 'opening_hours', 'google_maps_url',
             'social_facebook', 'social_instagram', 'social_twitter'
         ];

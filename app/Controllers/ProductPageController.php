@@ -17,15 +17,21 @@ class ProductPageController {
 
         $settings = Setting::getAll();
         
-        // Prepare some data for meta tags and whatsapp
-        $phone = $settings['business_phone_1'] ?? '';
-        $whatsappNumber = preg_replace('/[^0-9]/', '', $phone);
-        if (str_starts_with($whatsappNumber, '0')) {
-            $whatsappNumber = '254' . substr($whatsappNumber, 1);
+        // WhatsApp inquiry message: admin-configurable template with
+        // {product_name} and {price} placeholders, falling back to the
+        // original wording if not set. Number comes from the shared helper
+        // (business_whatsapp), not business_phone_1, for consistency with
+        // every other WhatsApp link on the site.
+        $inquiryTemplate = $settings['product_inquiry_whatsapp_message'] ?? '';
+        if (trim($inquiryTemplate) === '') {
+            $inquiryTemplate = 'Hi, I am interested in {product_name} listed at Ksh {price}.';
         }
-        
-        $whatsappText = "Hi, I am interested in " . $product['name'] . " listed at Ksh " . number_format($product['price']);
-        $whatsappUrl = "https://wa.me/{$whatsappNumber}?text=" . rawurlencode($whatsappText);
+        $whatsappText = str_replace(
+            ['{product_name}', '{price}'],
+            [$product['name'], number_format($product['price'])],
+            $inquiryTemplate
+        );
+        $whatsappUrl = Setting::getWhatsAppUrl($settings, $whatsappText);
 
         $scheme = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off') ? 'https' : 'http';
         $canonicalUrl = $scheme . '://' . ($_SERVER['HTTP_HOST'] ?? 'localhost') . '/products/' . $product['slug'];
