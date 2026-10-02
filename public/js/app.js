@@ -236,7 +236,7 @@
       showToast("Your cart is empty");
       return;
     }
-    const phone = "254724407638";
+    const phone = window.TIMLYNE_SETTINGS?.whatsappNumber || "254724407638";
     const url = `https://wa.me/${phone}?text=${buildWhatsAppMessage()}`;
     window.open(url, "_blank", "noopener,noreferrer");
   }

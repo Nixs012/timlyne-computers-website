@@ -319,6 +319,12 @@ if (!empty($ogImage)) { $localBusinessData['image'] = $ogImage; }
 
   <div class="toast" id="toast" role="status" aria-live="polite"></div>
 
+  <script>
+    window.TIMLYNE_SETTINGS = {
+      whatsappNumber: <?= json_encode(ltrim((string)parse_url($waUrl, PHP_URL_PATH), '/'), JSON_HEX_TAG | JSON_HEX_AMP) ?>,
+      whatsappCartMessagePrefix: <?= json_encode('Hello Timlyne Computers,', JSON_HEX_TAG | JSON_HEX_AMP) ?>
+    };
+  </script>
   <script src="js/app.js"></script>
 </body>
 </html>
