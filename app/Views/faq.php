@@ -136,6 +136,20 @@
   <footer class="footer">
     <div class="container footer__inner">
       <p>&copy; <span id="year"><?= date('Y') ?></span> <?= \App\Core\Security::e($bName) ?>. All rights reserved. | <a href="/faq" style="color: inherit;">FAQ</a> | <a href="/gallery" style="color: inherit;">Gallery</a> | <a href="/privacy-policy" style="color: inherit;">Privacy Policy</a> | <a href="/terms-conditions" style="color: inherit;">Terms &amp; Conditions</a></p>
+      <?php
+        $socialLinks = array_filter([
+            'Facebook' => $settings['social_facebook'] ?? '',
+            'Instagram' => $settings['social_instagram'] ?? '',
+            'Twitter' => $settings['social_twitter'] ?? '',
+        ], static fn($url) => is_string($url) && trim($url) !== '');
+      ?>
+      <?php if ($socialLinks): ?>
+      <p style="display: flex; justify-content: center; gap: 1rem;">
+        <?php foreach ($socialLinks as $label => $url): ?>
+        <a href="<?= \App\Core\Security::e($url) ?>" target="_blank" rel="noopener noreferrer" style="color: inherit;"><?= \App\Core\Security::e($label) ?></a>
+        <?php endforeach; ?>
+      </p>
+      <?php endif; ?>
     </div>
   </footer>
 </body>

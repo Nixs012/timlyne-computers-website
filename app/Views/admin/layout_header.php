@@ -95,7 +95,10 @@
             <a href="/admin/security">Security</a>
             <a href="/admin/system-settings">System Settings</a>
         </nav>
-        <a href="/admin/logout" class="logout" style="padding: 1rem; text-decoration: none;">Logout</a>
+        <form action="/admin/logout" method="POST" class="logout" style="margin-top: auto;">
+            <input type="hidden" name="csrf_token" value="<?= \App\Core\Security::e(\App\Core\Security::generateCsrfToken()) ?>">
+            <button type="submit" style="display: block; width: 100%; padding: 1rem; color: white; background: none; border: none; text-align: center; font: inherit; cursor: pointer;">Logout</button>
+        </form>
     </div>
     <div class="main-content">
         <div class="header">

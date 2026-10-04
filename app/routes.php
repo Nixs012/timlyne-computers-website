@@ -17,7 +17,7 @@ $router->get('/api/categories', 'Api\CategoryController@index');
 // Admin Auth
 $router->get('/admin/login', 'Admin\AuthController@showLoginForm');
 $router->post('/admin/login', 'Admin\AuthController@login');
-$router->get('/admin/logout', 'Admin\AuthController@logout');
+$router->post('/admin/logout', 'Admin\AuthController@logout');
 
 // Admin routes (Protected)
 $auth = [\App\Core\Middleware\AuthMiddleware::class];

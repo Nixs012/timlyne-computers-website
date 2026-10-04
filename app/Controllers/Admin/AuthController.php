@@ -33,6 +33,14 @@ class AuthController {
     }
 
     public function logout() {
+        if ($_SERVER['REQUEST_METHOD'] !== 'POST') return;
+
+        if (!Security::verifyCsrfToken($_POST['csrf_token'] ?? '')) {
+            Session::set('error', 'Invalid CSRF token.');
+            header("Location: /admin");
+            exit;
+        }
+
         Auth::logout();
         header('Location: /admin/login');
         exit;
