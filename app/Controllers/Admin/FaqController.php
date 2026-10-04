@@ -35,7 +35,8 @@ class FaqController {
             exit;
         }
 
-        Faq::create($question, $answer, $sort_order, $is_published);
+        $faqId = Faq::create($question, $answer, $sort_order, $is_published);
+        \App\Models\AuditLog::log(Session::get('admin_id'), 'create', 'faq', $faqId, 'FAQ created');
         Session::set('success', 'FAQ created successfully.');
         header("Location: /admin/faqs");
         exit;
@@ -72,6 +73,7 @@ class FaqController {
         }
 
         Faq::update($id, $question, $answer, $sort_order, $is_published);
+        \App\Models\AuditLog::log(Session::get('admin_id'), 'update', 'faq', $id, 'FAQ updated');
         Session::set('success', 'FAQ updated successfully.');
         header("Location: /admin/faqs");
         exit;
@@ -86,6 +88,7 @@ class FaqController {
             exit;
         }
         Faq::delete($id);
+        \App\Models\AuditLog::log(Session::get('admin_id'), 'delete', 'faq', $id, 'FAQ deleted');
 
         Session::set('success', 'FAQ deleted successfully.');
         header("Location: /admin/faqs");

@@ -66,7 +66,8 @@ class ProductController {
         }
 
         try {
-            Product::create($id, $categoryId, $name, $slug, $price, $description, $icon, $imagePath, $specs, $metaTitle, $metaDescription, $isPublished);
+            $createdId = Product::create($id, $categoryId, $name, $slug, $price, $description, $icon, $imagePath, $specs, $metaTitle, $metaDescription, $isPublished);
+            \App\Models\AuditLog::log(Session::get('admin_id'), 'create', 'product', $createdId, $name);
             Session::set('success', 'Product created successfully.');
             header('Location: /admin/products');
             exit;
@@ -116,6 +117,7 @@ class ProductController {
 
         try {
             Product::update($id, $categoryId, $name, $slug, $price, $description, $icon, $imagePath, $specs, $metaTitle, $metaDescription, $isPublished);
+            \App\Models\AuditLog::log(Session::get('admin_id'), 'update', 'product', $id, $name);
             Session::set('success', 'Product updated successfully.');
         } catch (\PDOException $e) {
             error_log('Failed to update product: ' . $e->getMessage());
@@ -137,6 +139,7 @@ class ProductController {
 
         try {
             Product::delete($id);
+            \App\Models\AuditLog::log(Session::get('admin_id'), 'delete', 'product', $id, 'Product deleted');
             Session::set('success', 'Product deleted successfully.');
         } catch (\PDOException $e) {
             error_log('Failed to delete product: ' . $e->getMessage());

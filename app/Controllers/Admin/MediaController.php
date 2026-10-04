@@ -63,7 +63,8 @@ class MediaController {
         $targetPath = $uploadDir . $fileName;
         if (move_uploaded_file($file['tmp_name'], $targetPath)) {
             $dbPath = '/uploads/' . $fileName;
-            Media::create($dbPath, $mime, $_POST['alt_text'] ?? '');
+            $mediaId = Media::create($dbPath, $mime, $_POST['alt_text'] ?? '');
+            \App\Models\AuditLog::log(Session::get('admin_id'), 'create', 'media', $mediaId, $dbPath);
             Session::set('success', 'Image uploaded successfully.');
         } else {
             Session::set('error', 'Failed to move uploaded file.');
@@ -87,6 +88,7 @@ class MediaController {
                     unlink($filePath);
                 }
                 Media::delete($id);
+                \App\Models\AuditLog::log(Session::get('admin_id'), 'delete', 'media', $id, 'Media item deleted');
                 Session::set('success', 'Image deleted successfully.');
             }
         }

@@ -37,6 +37,7 @@ class ChatbotController {
         }
 
         ChatbotSetting::saveChatbotSettings($settings);
+    \App\Models\AuditLog::log(Session::get('admin_id'), 'update', 'chatbot_settings', 1, 'Chatbot settings updated');
         Session::set('success', 'Chatbot settings updated successfully.');
         header('Location: /admin/chatbot');
         exit;

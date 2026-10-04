@@ -44,7 +44,8 @@ class GalleryController {
             exit;
         }
 
-        Gallery::create($mediaId, $caption, $is_published);
+        $galleryId = Gallery::create($mediaId, $caption, $is_published);
+        \App\Models\AuditLog::log(Session::get('admin_id'), 'create', 'gallery', $galleryId, $caption);
         Session::set('success', 'Gallery item created successfully.');
         header("Location: /admin/gallery");
         exit;
@@ -85,6 +86,7 @@ class GalleryController {
         }
 
         Gallery::update($id, $item['media_id'], $caption, $is_published);
+        \App\Models\AuditLog::log(Session::get('admin_id'), 'update', 'gallery', $id, $caption);
         // Model update doesn't handle sort_order currently. I should probably fix that in the model
         // but the prompt says only change these files.
         // Wait, Gallery::update doesn't even have sort_order in its signature.
@@ -104,6 +106,7 @@ class GalleryController {
         }
 
         Gallery::delete($id);
+        \App\Models\AuditLog::log(Session::get('admin_id'), 'delete', 'gallery', $id, 'Gallery item deleted');
         Session::set('success', 'Gallery item deleted successfully.');
         header("Location: /admin/gallery");
         exit;

@@ -44,7 +44,8 @@ class CategoryController {
         }
 
         try {
-            Category::create($name, $slug, $sortOrder);
+            $categoryId = Category::create($name, $slug, $sortOrder);
+            \App\Models\AuditLog::log(Session::get('admin_id'), 'create', 'category', $categoryId, $name);
             Session::set('success', 'Category created successfully.');
         } catch (\PDOException $e) {
             error_log('Failed to create category: ' . $e->getMessage());
@@ -70,6 +71,7 @@ class CategoryController {
 
         try {
             Category::update($id, $name, $slug, $sortOrder);
+            \App\Models\AuditLog::log(Session::get('admin_id'), 'update', 'category', $id, $name);
             Session::set('success', 'Category updated successfully.');
         } catch (\PDOException $e) {
             error_log('Failed to update category: ' . $e->getMessage());
@@ -91,6 +93,7 @@ class CategoryController {
 
         try {
             Category::delete($id);
+            \App\Models\AuditLog::log(Session::get('admin_id'), 'delete', 'category', $id, 'Category deleted');
             Session::set('success', 'Category deleted successfully.');
         } catch (\PDOException $e) {
             error_log('Failed to delete category: ' . $e->getMessage());

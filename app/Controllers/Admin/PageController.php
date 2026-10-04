@@ -50,7 +50,8 @@ class PageController {
             exit;
         }
 
-        Page::create($title, $slug, $content, $meta_title, $meta_description, $is_published);
+        $pageId = Page::create($title, $slug, $content, $meta_title, $meta_description, $is_published);
+        \App\Models\AuditLog::log(Session::get('admin_id'), 'create', 'page', $pageId, $title);
         Session::set('success', 'Page created successfully.');
         header("Location: /admin/pages");
         exit;
@@ -102,6 +103,7 @@ class PageController {
         }
 
         Page::update($id, $title, $slug, $content, $meta_title, $meta_description, $is_published);
+        \App\Models\AuditLog::log(Session::get('admin_id'), 'update', 'page', $id, $title);
         Session::set('success', 'Page updated successfully.');
         header("Location: /admin/pages");
         exit;
@@ -116,6 +118,7 @@ class PageController {
             exit;
         }
         Page::delete($id);
+        \App\Models\AuditLog::log(Session::get('admin_id'), 'delete', 'page', $id, 'Page deleted');
 
         Session::set('success', 'Page deleted successfully.');
         header("Location: /admin/pages");

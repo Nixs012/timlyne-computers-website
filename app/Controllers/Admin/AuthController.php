@@ -23,6 +23,7 @@ class AuthController {
         $password = $_POST['password'] ?? '';
 
         if (Auth::login($email, $password)) {
+            \App\Models\AuditLog::log(Session::get('admin_id'), 'login', 'admin', Session::get('admin_id'), 'Admin login successful');
             header('Location: /admin');
             exit;
         }
@@ -41,7 +42,9 @@ class AuthController {
             exit;
         }
 
+        $adminId = Session::get('admin_id');
         Auth::logout();
+        \App\Models\AuditLog::log($adminId, 'logout', 'admin', $adminId, 'Admin logout');
         header('Location: /admin/login');
         exit;
     }

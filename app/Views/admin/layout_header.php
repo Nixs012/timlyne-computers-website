@@ -93,6 +93,7 @@
             <a href="/admin/analytics">Analytics</a>
             <a href="/admin/users">Users</a>
             <a href="/admin/security">Security</a>
+            <a href="/admin/audit-log">Audit Log</a>
             <a href="/admin/system-settings">System Settings</a>
         </nav>
         <form action="/admin/logout" method="POST" class="logout" style="margin-top: auto;">

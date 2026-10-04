@@ -96,6 +96,7 @@ $router->post('/admin/products/[id]/update', 'Admin\ProductController@update', $
 $router->post('/admin/products/[id]/delete', 'Admin\ProductController@delete', $auth);
 
 // Super Admin only routes
+$router->get('/admin/audit-log', 'Admin\AuditLogController@index', $superAdmin);
 $router->get('/admin/business-settings', 'Admin\SettingsController@index', $superAdmin);
 $router->post('/admin/business-settings', 'Admin\SettingsController@save', $superAdmin);
 $router->get('/admin/social-media', 'Admin\DashboardController@placeholder', $superAdmin);

@@ -30,6 +30,7 @@ class SettingsController {
             }
         }
 
+        \App\Models\AuditLog::log(Session::get('admin_id'), 'update', 'business_settings', null, 'Business settings updated');
         Session::set('success', 'Business settings updated successfully.');
         header('Location: /admin/business-settings');
         exit;

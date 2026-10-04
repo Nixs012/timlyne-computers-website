@@ -53,6 +53,7 @@ class SeoController {
         }
 
         Setting::saveSeo($data);
+        \App\Models\AuditLog::log(Session::get('admin_id'), 'update', 'seo_settings', null, 'SEO settings updated');
         Session::set('success', 'SEO settings updated successfully.');
         header('Location: /admin/seo');
         exit;
