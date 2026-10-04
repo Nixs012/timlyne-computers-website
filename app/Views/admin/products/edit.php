@@ -4,6 +4,19 @@
     <h2>Edit Product</h2>
 </div>
 
+<?php if ($msg = \App\Core\Session::get('success')): ?>
+    <div style="background: #10b981; color: white; padding: 1rem; margin-bottom: 1rem; border-radius: 4px;">
+        <?= \App\Core\Security::e($msg) ?>
+    </div>
+    <?php \App\Core\Session::clear('success'); ?>
+<?php endif; ?>
+<?php if ($msg = \App\Core\Session::get('error')): ?>
+    <div style="background: #ef4444; color: white; padding: 1rem; margin-bottom: 1rem; border-radius: 4px;">
+        <?= \App\Core\Security::e($msg) ?>
+    </div>
+    <?php \App\Core\Session::clear('error'); ?>
+<?php endif; ?>
+
 <div class="card">
     <form action="/admin/products/<?= \App\Core\Security::e($product['id']) ?>/update" method="POST" class="settings-form">
         <input type="hidden" name="csrf_token" value="<?= \App\Core\Security::generateCsrfToken() ?>">

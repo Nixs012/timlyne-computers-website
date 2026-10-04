@@ -2,6 +2,7 @@
 namespace App\Controllers\Admin;
 
 use App\Models\Category;
+use App\Core\Security;
 use App\Core\Session;
 
 class CategoryController {
@@ -24,6 +25,14 @@ class CategoryController {
     }
 
     public function store() {
+        if ($_SERVER['REQUEST_METHOD'] !== 'POST') return;
+
+        if (!Security::verifyCsrfToken($_POST['csrf_token'] ?? '')) {
+            Session::set('error', 'Invalid CSRF token.');
+            header("Location: /admin/categories");
+            exit;
+        }
+
         $name = $_POST['name'] ?? '';
         $slug = $_POST['slug'] ?? '';
         $sortOrder = $_POST['sort_order'] ?? 0;
@@ -38,7 +47,8 @@ class CategoryController {
             Category::create($name, $slug, $sortOrder);
             Session::set('success', 'Category created successfully.');
         } catch (\PDOException $e) {
-            Session::set('error', 'Database error: ' . $e->getMessage());
+            error_log('Failed to create category: ' . $e->getMessage());
+            Session::set('error', 'Something went wrong saving this category. Please try again.');
         }
         
         header('Location: /admin/categories');
@@ -46,6 +56,14 @@ class CategoryController {
     }
 
     public function update($id) {
+        if ($_SERVER['REQUEST_METHOD'] !== 'POST') return;
+
+        if (!Security::verifyCsrfToken($_POST['csrf_token'] ?? '')) {
+            Session::set('error', 'Invalid CSRF token.');
+            header("Location: /admin/categories");
+            exit;
+        }
+
         $name = $_POST['name'] ?? '';
         $slug = $_POST['slug'] ?? '';
         $sortOrder = $_POST['sort_order'] ?? 0;
@@ -54,7 +72,8 @@ class CategoryController {
             Category::update($id, $name, $slug, $sortOrder);
             Session::set('success', 'Category updated successfully.');
         } catch (\PDOException $e) {
-            Session::set('error', 'Database error: ' . $e->getMessage());
+            error_log('Failed to update category: ' . $e->getMessage());
+            Session::set('error', 'Something went wrong updating this category. Please try again.');
         }
         
         header('Location: /admin/categories');
@@ -62,11 +81,20 @@ class CategoryController {
     }
 
     public function delete($id) {
+        if ($_SERVER['REQUEST_METHOD'] !== 'POST') return;
+
+        if (!Security::verifyCsrfToken($_POST['csrf_token'] ?? '')) {
+            Session::set('error', 'Invalid CSRF token.');
+            header("Location: /admin/categories");
+            exit;
+        }
+
         try {
             Category::delete($id);
             Session::set('success', 'Category deleted successfully.');
         } catch (\PDOException $e) {
-            Session::set('error', 'Database error (perhaps products still exist in this category?): ' . $e->getMessage());
+            error_log('Failed to delete category: ' . $e->getMessage());
+            Session::set('error', 'Something went wrong deleting this category. Please try again.');
         }
         
         header('Location: /admin/categories');

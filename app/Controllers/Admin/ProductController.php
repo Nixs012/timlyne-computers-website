@@ -4,6 +4,7 @@ namespace App\Controllers\Admin;
 use App\Models\Product;
 use App\Models\Category;
 use App\Models\Media;
+use App\Core\Security;
 use App\Core\Session;
 
 class ProductController {
@@ -33,6 +34,14 @@ class ProductController {
     }
 
     public function store() {
+        if ($_SERVER['REQUEST_METHOD'] !== 'POST') return;
+
+        if (!Security::verifyCsrfToken($_POST['csrf_token'] ?? '')) {
+            Session::set('error', 'Invalid CSRF token.');
+            header("Location: /admin/products/create");
+            exit;
+        }
+
         $id = $_POST['id'] ?? '';
         $categoryId = $_POST['category_id'] ?? '';
         $name = $_POST['name'] ?? '';
@@ -62,7 +71,8 @@ class ProductController {
             header('Location: /admin/products');
             exit;
         } catch (\PDOException $e) {
-            Session::set('error', 'Database error: ' . $e->getMessage());
+            error_log('Failed to create product: ' . $e->getMessage());
+            Session::set('error', 'Something went wrong saving this product. Please try again.');
             header('Location: /admin/products/create');
             exit;
         }
@@ -80,6 +90,14 @@ class ProductController {
     }
 
     public function update($id) {
+        if ($_SERVER['REQUEST_METHOD'] !== 'POST') return;
+
+        if (!Security::verifyCsrfToken($_POST['csrf_token'] ?? '')) {
+            Session::set('error', 'Invalid CSRF token.');
+            header("Location: /admin/products");
+            exit;
+        }
+
         $categoryId = $_POST['category_id'] ?? '';
         $name = $_POST['name'] ?? '';
         $slug = $_POST['slug'] ?? '';
@@ -100,7 +118,8 @@ class ProductController {
             Product::update($id, $categoryId, $name, $slug, $price, $description, $icon, $imagePath, $specs, $metaTitle, $metaDescription, $isPublished);
             Session::set('success', 'Product updated successfully.');
         } catch (\PDOException $e) {
-            Session::set('error', 'Database error: ' . $e->getMessage());
+            error_log('Failed to update product: ' . $e->getMessage());
+            Session::set('error', 'Something went wrong updating this product. Please try again.');
         }
         
         header('Location: /admin/products');
@@ -108,11 +127,20 @@ class ProductController {
     }
 
     public function delete($id) {
+        if ($_SERVER['REQUEST_METHOD'] !== 'POST') return;
+
+        if (!Security::verifyCsrfToken($_POST['csrf_token'] ?? '')) {
+            Session::set('error', 'Invalid CSRF token.');
+            header("Location: /admin/products");
+            exit;
+        }
+
         try {
             Product::delete($id);
             Session::set('success', 'Product deleted successfully.');
         } catch (\PDOException $e) {
-            Session::set('error', 'Database error: ' . $e->getMessage());
+            error_log('Failed to delete product: ' . $e->getMessage());
+            Session::set('error', 'Something went wrong deleting this product. Please try again.');
         }
         
         header('Location: /admin/products');

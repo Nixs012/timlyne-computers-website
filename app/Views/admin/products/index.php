@@ -5,6 +5,19 @@
     <a href="/admin/products/create" class="btn btn--primary">+ Add Product</a>
 </div>
 
+<?php if ($msg = \App\Core\Session::get('success')): ?>
+    <div style="background: #10b981; color: white; padding: 1rem; margin-bottom: 1rem; border-radius: 4px;">
+        <?= \App\Core\Security::e($msg) ?>
+    </div>
+    <?php \App\Core\Session::clear('success'); ?>
+<?php endif; ?>
+<?php if ($msg = \App\Core\Session::get('error')): ?>
+    <div style="background: #ef4444; color: white; padding: 1rem; margin-bottom: 1rem; border-radius: 4px;">
+        <?= \App\Core\Security::e($msg) ?>
+    </div>
+    <?php \App\Core\Session::clear('error'); ?>
+<?php endif; ?>
+
 <div class="card">
     <div class="content-wrapper">
         <table class="data-table" style="width:100%; text-align:left; border-collapse: collapse;">

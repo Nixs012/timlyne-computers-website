@@ -5,6 +5,19 @@
     <button class="btn btn--primary" onclick="document.getElementById('addCategoryForm').style.display='block'">+ Add Category</button>
 </div>
 
+<?php if ($msg = \App\Core\Session::get('success')): ?>
+    <div style="background: #10b981; color: white; padding: 1rem; margin-bottom: 1rem; border-radius: 4px;">
+        <?= \App\Core\Security::e($msg) ?>
+    </div>
+    <?php \App\Core\Session::clear('success'); ?>
+<?php endif; ?>
+<?php if ($msg = \App\Core\Session::get('error')): ?>
+    <div style="background: #ef4444; color: white; padding: 1rem; margin-bottom: 1rem; border-radius: 4px;">
+        <?= \App\Core\Security::e($msg) ?>
+    </div>
+    <?php \App\Core\Session::clear('error'); ?>
+<?php endif; ?>
+
 <div class="card" id="addCategoryForm" style="display:none; margin-bottom: 2rem;">
     <h3>New Category</h3>
     <form action="/admin/categories" method="POST" class="settings-form">

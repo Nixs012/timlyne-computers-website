@@ -5,15 +5,17 @@
     <a href="/admin/pages/create" class="btn btn--primary">+ Create New Page</a>
 </div>
 
-<?php if (\App\Core\Session::get('success')): ?>
+<?php if ($msg = \App\Core\Session::get('success')): ?>
     <div style="background: #10b981; color: white; padding: 1rem; margin-bottom: 1rem; border-radius: 4px;">
-        <?= \App\Core\Security::e(\App\Core\Session::get('success')) ?>
+        <?= \App\Core\Security::e($msg) ?>
     </div>
+    <?php \App\Core\Session::clear('success'); ?>
 <?php endif; ?>
-<?php if (\App\Core\Session::get('error')): ?>
+<?php if ($msg = \App\Core\Session::get('error')): ?>
     <div style="background: #ef4444; color: white; padding: 1rem; margin-bottom: 1rem; border-radius: 4px;">
-        <?= \App\Core\Security::e(\App\Core\Session::get('error')) ?>
+        <?= \App\Core\Security::e($msg) ?>
     </div>
+    <?php \App\Core\Session::clear('error'); ?>
 <?php endif; ?>
 
 <div class="card">
