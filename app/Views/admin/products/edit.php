@@ -86,7 +86,7 @@
         </div>
         <div class="form-group">
             <label>Meta Description</label>
-            <textarea name="meta_description" rows="3" style="width: 100%; padding: 0.75rem; border: 1px solid var(--border-color); border-radius: 8px;"><?= \App\H\Core\Security::e($product['meta_description'] ?? '') ?></textarea>
+            <textarea name="meta_description" rows="3" style="width: 100%; padding: 0.75rem; border: 1px solid var(--border-color); border-radius: 8px;"><?= \App\Core\Security::e($product['meta_description'] ?? '') ?></textarea>
         </div>
 
         <div class="form-group" style="margin-top: 1rem;">
