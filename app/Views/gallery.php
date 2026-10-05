@@ -97,7 +97,7 @@
           <?php foreach ($gallery as $item): ?>
             <figure class="gallery-item">
               <div class="image-container">
-                <img src="<?= \App\Core\Security::e($item['file_path']) ?>"
+                <img src="<?= \App\Core\Security::e($item['image_url']) ?>"
                      alt="<?= \App\Core\Security::e($item['alt_text'] ?? ($item['caption'] ?? '')) ?>"
                      loading="lazy" />
               </div>
