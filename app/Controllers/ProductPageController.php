@@ -35,8 +35,9 @@ class ProductPageController {
 
         $scheme = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off') ? 'https' : 'http';
         $canonicalUrl = $scheme . '://' . ($_SERVER['HTTP_HOST'] ?? 'localhost') . '/products/' . $product['slug'];
-        $ogImage = !empty($product['image_path'])
-            ? (str_starts_with($product['image_path'], 'http') ? $product['image_path'] : $scheme . '://' . ($_SERVER['HTTP_HOST'] ?? 'localhost') . '/' . ltrim($product['image_path'], '/'))
+        $normalizedImagePath = \App\Models\Product::normalizeImagePath($product['image_path'] ?? '');
+        $ogImage = $normalizedImagePath !== ''
+            ? (str_starts_with($normalizedImagePath, 'http') ? $normalizedImagePath : $scheme . '://' . ($_SERVER['HTTP_HOST'] ?? 'localhost') . $normalizedImagePath)
             : null;
 
         $fallbackDescription = $product['name'] . ' — available at ' . ($settings['business_name'] ?? 'Timlyne Computer Solutions') . ', Mombasa, Kenya.';

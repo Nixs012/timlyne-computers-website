@@ -14,7 +14,7 @@ class ProductController {
                 'name' => $p['name'],
                 'category' => $p['category_name'],
                 'icon' => $p['icon'],
-                'image' => $p['image_path'],
+                'image' => \App\Models\Product::normalizeImagePath($p['image_path']),
                 'price' => (float)$p['price'],
                 'slug' => $p['slug'],
                 'specs' => json_decode($p['specs'], true) ?? []

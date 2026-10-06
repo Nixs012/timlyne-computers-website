@@ -65,9 +65,50 @@
         </div>
 
         <div class="form-group">
-            <label>Image Path</label>
-            <input type="text" name="image_path" value="<?= \App\Core\Security::e($product['image_path'] ?? '') ?>">
-            <small>Or copy a path from the <a href="/admin/media" target="_blank">Media Library</a>.</small>
+            <label>Product Image</label>
+            <input type="hidden" name="image_path" id="imagePathInput" value="<?= \App\Core\Security::e($product['image_path'] ?? '') ?>">
+            <?php if (!empty($media)): ?>
+                <div id="mediaPicker" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(120px, 1fr)); gap: 1rem; margin-top: 0.5rem; max-height: 400px; overflow-y: auto; border: 1px solid #e2e8f0; padding: 1rem; border-radius: 4px; background: #f8fafc;">
+                    <?php foreach ($media as $m): ?>
+                    <div class="media-thumb" data-path="<?= \App\Core\Security::e($m['file_path']) ?>"
+                         style="cursor: pointer; border: 2px solid #ddd; padding: 4px; border-radius: 4px; background: white; text-align: center; transition: all 0.2s;">
+                        <img src="<?= \App\Core\Security::e($m['file_path']) ?>" alt="<?= \App\Core\Security::e($m['alt_text'] ?? '') ?>"
+                             style="width: 100%; height: 100px; object-fit: cover; border-radius: 2px; pointer-events: none;">
+                        <div style="font-size: 0.7rem; margin-top: 4px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; color: #64748b;">
+                            <?= \App\Core\Security::e(basename($m['file_path'])) ?>
+                        </div>
+                    </div>
+                    <?php endforeach; ?>
+                </div>
+                <style>
+                    .media-thumb.is-selected { border-color: #3b82f6 !important; background: #eff6ff !important; box-shadow: 0 0 0 2px #3b82f6; }
+                </style>
+                <script>
+                (function() {
+                    var current = <?= json_encode($product['image_path'] ?? '') ?>;
+                    document.querySelectorAll('#mediaPicker .media-thumb').forEach(function(el) {
+                        if (el.dataset.path === current) { el.classList.add('is-selected'); }
+                        el.addEventListener('click', function() {
+                            document.querySelectorAll('#mediaPicker .media-thumb').forEach(function(t) { t.classList.remove('is-selected'); });
+                            el.classList.add('is-selected');
+                            document.getElementById('imagePathInput').value = el.dataset.path;
+                            document.getElementById('imagePathOverride').value = el.dataset.path;
+                        });
+                    });
+                })();
+                </script>
+            <?php else: ?>
+                <div style="padding: 1.5rem; text-align: center; background: #f1f5f9; border: 1px dashed #cbd5e1; border-radius: 4px; margin-top: 0.5rem;">
+                    <p style="color: #64748b; margin-bottom: 0.75rem;">No images in the Media Library yet.</p>
+                    <a href="/admin/media" target="_blank" class="btn btn--primary">Upload images &rarr;</a>
+                </div>
+            <?php endif; ?>
+            <div style="margin-top: 0.75rem;">
+                <label style="font-size: 0.85rem; color: #64748b;">Or enter path manually:</label>
+                <input type="text" id="imagePathOverride" placeholder="/uploads/image.jpg"
+                       value="<?= \App\Core\Security::e($product['image_path'] ?? '') ?>"
+                       oninput="document.getElementById('imagePathInput').value = this.value;">
+            </div>
         </div>
 
         <div class="form-group">

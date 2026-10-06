@@ -87,7 +87,7 @@
         <div class="product-detail-container">
             <div class="product-image">
                 <?php if ($product['image_path']): ?>
-                    <img src="<?= \App\Core\Security::e($product['image_path']) ?>" alt="<?= \App\Core\Security::e($product['name']) ?>">
+                    <img src="<?= \App\Core\Security::e(\App\Models\Product::normalizeImagePath($product['image_path'])) ?>" alt="<?= \App\Core\Security::e($product['name']) ?>">
                 <?php else: ?>
                     <?= \App\Core\Security::e($product['icon'] ?? '📦') ?>
                 <?php endif; ?>

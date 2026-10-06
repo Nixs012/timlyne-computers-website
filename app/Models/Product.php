@@ -5,6 +5,28 @@ use App\Config\Database;
 use PDO;
 
 class Product {
+    /**
+     * Normalise a stored image_path to a root-relative or absolute URL.
+     * Bare filenames (e.g. "abc123-foo.jpg") are assumed to live in /uploads/.
+     * Values already starting with "http", "/uploads/", or "/assets/" are
+     * returned unchanged so legacy paths and external URLs are not mangled.
+     */
+    public static function normalizeImagePath(?string $path): string {
+        if (empty($path)) return '';
+        if (
+            str_starts_with($path, 'http') ||
+            str_starts_with($path, '/uploads/') ||
+            str_starts_with($path, '/assets/')
+        ) {
+            return $path;
+        }
+        // Bare "assets/..." path (no leading slash) — normalise to "/assets/..."
+        if (str_starts_with($path, 'assets/')) {
+            return '/' . $path;
+        }
+        return '/uploads/' . $path;
+    }
+
     public static function getAllAdmin() {
         $db = Database::getConnection();
         $stmt = $db->query("SELECT p.*, c.name as category_name FROM products p JOIN categories c ON p.category_id = c.id ORDER BY p.created_at DESC");
