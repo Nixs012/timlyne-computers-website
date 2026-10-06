@@ -33,6 +33,57 @@ class Auth {
         session_destroy();
     }
 
+    /**
+     * Change an admin's password.
+     *
+     * @param int    $adminId         ID of the admin whose password is being changed
+     * @param string $currentPassword The current password submitted by the admin
+     * @param string $newPassword     The new password to set
+     * @return array{ok: bool, error: string|null} Result array
+     */
+    public static function changePassword(int $adminId, string $currentPassword, string $newPassword): array {
+        $db = Database::getConnection();
+
+        // Fetch the admin's current password hash
+        $stmt = $db->prepare("SELECT password_hash FROM admins WHERE id = ?");
+        $stmt->execute([$adminId]);
+        $admin = $stmt->fetch();
+
+        if (!$admin) {
+            return ['ok' => false, 'error' => 'Account not found.'];
+        }
+
+        // Verify the current password matches
+        if (!password_verify($currentPassword, $admin['password_hash'])) {
+            return ['ok' => false, 'error' => 'Current password is incorrect.'];
+        }
+
+        // Validate minimum length on the new password
+        if (strlen($newPassword) < 8) {
+            return ['ok' => false, 'error' => 'New password must be at least 8 characters.'];
+        }
+
+        // Validate max length to prevent abuse
+        if (strlen($newPassword) > 255) {
+            return ['ok' => false, 'error' => 'New password is too long (max 255 characters).'];
+        }
+
+        // Hash the new password and update
+        $newHash = password_hash($newPassword, PASSWORD_DEFAULT);
+        $updateStmt = $db->prepare("UPDATE admins SET password_hash = ? WHERE id = ?");
+        $result = $updateStmt->execute([$newHash, $adminId]);
+
+        if (!$result) {
+            return ['ok' => false, 'error' => 'Password update failed. Please try again.'];
+        }
+
+        // Log the audit event (no passwords logged)
+        $ip = $_SERVER['REMOTE_ADDR'] ?? '127.0.0.1';
+        \App\Models\AuditLog::log($adminId, 'change_password', 'admin', $adminId, 'Password changed by user', $ip);
+
+        return ['ok' => true, 'error' => null];
+    }
+
     public static function check() {
         return Session::get('admin_id') !== null;
     }

@@ -96,6 +96,7 @@
             <a href="/admin/audit-log">Audit Log</a>
             <a href="/admin/system-settings">System Settings</a>
         </nav>
+        <a href="/admin/change-password" style="display: block; padding: 0.75rem 1rem; color: #cbd5e1; text-decoration: none; border-top: 1px solid #334155;">Change Password</a>
         <form action="/admin/logout" method="POST" class="logout" style="margin-top: auto;">
             <input type="hidden" name="csrf_token" value="<?= \App\Core\Security::e(\App\Core\Security::generateCsrfToken()) ?>">
             <button type="submit" style="display: block; width: 100%; padding: 1rem; color: white; background: none; border: none; text-align: center; font: inherit; cursor: pointer;">Logout</button>

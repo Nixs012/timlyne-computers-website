@@ -24,6 +24,8 @@ $auth = [\App\Core\Middleware\AuthMiddleware::class];
 $superAdmin = [\App\Core\Middleware\AuthMiddleware::class, \App\Core\Middleware\SuperAdminMiddleware::class];
 
 $router->get('/admin', 'Admin\DashboardController@index', $auth);
+$router->get('/admin/change-password', 'Admin\AuthController@showChangePasswordForm', $auth);
+$router->post('/admin/change-password', 'Admin\AuthController@changePassword', $auth);
 
 // Contact Messages Management
 $router->get('/admin/messages', 'Admin\ContactController@index', $auth);
