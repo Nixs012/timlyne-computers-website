@@ -65,31 +65,7 @@ if (!empty($ogImage)) { $localBusinessData['image'] = $ogImage; }
   <link rel="stylesheet" href="/css/chatbot.css" />
   <?php endif; ?>
   <style>
-    .floating-wa {
-        position: fixed;
-        bottom: 24px;
-        right: 24px;
-        width: 60px;
-        height: 60px;
-        background-color: #25D366;
-        color: white;
-        border-radius: 50%;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        box-shadow: 0 4px 10px rgba(0,0,0,0.15);
-        z-index: 1000;
-        transition: transform 0.2s ease, box-shadow 0.2s ease;
-    }
-    .floating-wa:hover {
-        transform: scale(1.05);
-        box-shadow: 0 6px 14px rgba(0,0,0,0.2);
-    }
-    .floating-wa svg {
-        width: 35px;
-        height: 35px;
-        fill: currentColor;
-    }
+    /* .floating-wa moved to public/css/styles.css */
   </style>
 </head>
 <body>
