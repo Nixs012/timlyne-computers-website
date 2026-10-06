@@ -220,10 +220,12 @@ if (!empty($ogImage)) { $localBusinessData['image'] = $ogImage; }
           </div>
 
           <div class="contact-form-wrap">
+            <!-- Contact form temporarily disabled at client's request - collects no visitor data for now. Remove this comment and the one below to re-enable. -->
+            <!--
             <form action="/contact/submit" method="POST" style="display: flex; flex-direction: column; gap: 1rem; background: white; padding: 2rem; border-radius: 12px; border: 1px solid #e2e8f0; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1);">
               <input type="hidden" name="csrf_token" value="<?= \App\Core\Security::generateCsrfToken() ?>">
 
-              <!-- Honeypot -->
+              <?php // Honeypot ?>
               <div style="position: absolute; left: -9999px; top: auto; width: 1px; height: 1px; overflow: hidden;">
                 <input type="text" name="website" tabindex="-1" autocomplete="off">
               </div>
@@ -256,6 +258,7 @@ if (!empty($ogImage)) { $localBusinessData['image'] = $ogImage; }
                 }
               ?>
             </form>
+            -->
           </div>
         </div>
       </div>

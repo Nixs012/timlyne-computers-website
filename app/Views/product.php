@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title><?= \App\Core\Security::e($product['meta_title'] ?: $product['name'] . ' - ' . ($settings['business_name'] ?? 'Timlyne Computers')) ?></title>
+    <link rel="icon" href="/assets/logo.png" type="image/png" />
     <meta name="description" content="<?= \App\Core\Security::e($productDescription) ?>">
     <link rel="canonical" href="<?= \App\Core\Security::e($canonicalUrl) ?>" />
     <meta property="og:type" content="product" />

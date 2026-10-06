@@ -43,7 +43,7 @@
     <div class="header__inner container">
       <a href="/" class="logo" aria-label="<?= \App\Core\Security::e($bName) ?> — Home">
         <span class="logo__icon-wrap">
-          <img src="assets/logo.png" alt="" class="logo__icon" width="44" height="44" />
+          <img src="/assets/logo.png" alt="" class="logo__icon" width="44" height="44" />
         </span>
         <span class="logo__text">
           <strong class="logo__title">TIMLYNE</strong>
