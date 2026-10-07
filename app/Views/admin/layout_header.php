@@ -76,25 +76,20 @@
         <h2>Timlyne CMS</h2>
         <nav>
             <a href="/admin">Dashboard</a>
-            <a href="/admin/content">Content</a>
             <a href="/admin/pages">Pages</a>
             <a href="/admin/faqs">FAQs</a>
             <a href="/admin/categories">Categories</a>
             <a href="/admin/products">Products</a>
-            <a href="/admin/services">Services</a>
             <a href="/admin/gallery">Gallery</a>
             <a href="/admin/media">Media Library</a>
             <a href="/admin/messages">Messages</a>
             <a href="/admin/chatbot">Chatbot</a>
             <a href="/admin/seo">SEO</a>
-            <a href="/admin/whatsapp">WhatsApp</a>
+            <a href="/admin/business-settings">WhatsApp</a>
             <a href="/admin/business-settings">Business Settings</a>
-            <a href="/admin/social-media">Social Media</a>
-            <a href="/admin/analytics">Analytics</a>
+            <a href="/admin/business-settings">Social Media</a>
             <a href="/admin/users">Users</a>
-            <a href="/admin/security">Security</a>
             <a href="/admin/audit-log">Audit Log</a>
-            <a href="/admin/system-settings">System Settings</a>
         </nav>
         <a href="/admin/change-password" style="display: block; padding: 0.75rem 1rem; color: #cbd5e1; text-decoration: none; border-top: 1px solid #334155;">Change Password</a>
         <form action="/admin/logout" method="POST" class="logout" style="margin-top: auto;">

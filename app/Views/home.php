@@ -182,7 +182,7 @@ if (!empty($ogImage)) { $localBusinessData['image'] = $ogImage; }
 
     <section class="contact" id="contact">
       <div class="container contact__grid">
-        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; align-items: start;">
+        <div style="display: grid; grid-template-columns: 1fr; gap: 3rem; align-items: start;">
           <div>
             <h2 class="section-title section-title--light">Get in touch</h2>
             <p class="contact__tagline">Visit us or call — we're ready to help.</p>

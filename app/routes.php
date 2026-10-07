@@ -61,8 +61,7 @@ $router->post('/admin/pages/[id]/delete', 'Admin\PageController@delete', $auth);
 
 // Sidebar placeholder routes
 $sidebarRoutes = [
-    '/admin/content', '/admin/services',
-    '/admin/seo', '/admin/whatsapp'
+    '/admin/whatsapp'
 ];
 $seoRouteIndex = array_search('/admin/seo', $sidebarRoutes, true);
 if ($seoRouteIndex !== false) {
@@ -101,11 +100,7 @@ $router->post('/admin/products/[id]/delete', 'Admin\ProductController@delete', $
 $router->get('/admin/audit-log', 'Admin\AuditLogController@index', $superAdmin);
 $router->get('/admin/business-settings', 'Admin\SettingsController@index', $superAdmin);
 $router->post('/admin/business-settings', 'Admin\SettingsController@save', $superAdmin);
-$router->get('/admin/social-media', 'Admin\DashboardController@placeholder', $superAdmin);
-$router->get('/admin/analytics', 'Admin\DashboardController@placeholder', $superAdmin);
 $router->get('/admin/users', 'Admin\DashboardController@placeholder', $superAdmin);
-$router->get('/admin/security', 'Admin\DashboardController@placeholder', $superAdmin);
-$router->get('/admin/system-settings', 'Admin\DashboardController@placeholder', $superAdmin);
 
 // Catch-all for dynamic pages
 $router->post('/chatbot/ask', 'ChatbotController@ask');

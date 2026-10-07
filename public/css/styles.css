@@ -657,8 +657,16 @@ button {
 
 .contact__cards {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  grid-template-columns: repeat(3, 1fr);
   gap: 1.25rem;
+  max-width: 100%;
+}
+
+@media (max-width: 768px) {
+    .contact__cards {
+        grid-template-columns: 1fr;
+        max-width: 100%;
+    }
 }
 
 .contact-card {
